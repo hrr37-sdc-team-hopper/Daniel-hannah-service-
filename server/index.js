@@ -1,6 +1,6 @@
 const express = require('express');
-const faker = require('')
-const db = require('../database');
+const db = require('../db');
+const bodyParser = require('body-parser')
 
 const app = express();
 const PORT = 3001;
