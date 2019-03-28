@@ -8,10 +8,22 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start:dev": "nodemon server.js",
+    "react-dev": "webpack -d --watch"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-react": "^7.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
