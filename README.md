@@ -1,13 +1,13 @@
-# Project Name
+# Bookshelf
 
-> Project description
+> Bookshelf is a clone of an item page from https://goodreads.com. It includes 4 modules: the main book info, extra details, author details, and the reviews.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/hrr37-hermes-4/repo
+  - https://github.com/hrr37-hermes-4/repo
+  - https://github.com/hrr37-hermes-4/repo
+  - https://github.com/hrr37-hermes-4/repo
 
 ## Table of Contents
 
