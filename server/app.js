@@ -17,16 +17,18 @@ app.get('/books/:id/reviews', (req, res, next) => {
     res.send(reviews)
   })
   .catch(next)
-
-
-
 })
 
 // get reviews w/ specific rating
-app.get('books/:id/reviews/:rating', (req, res) => {
+app.get('books/:id/reviews/:rating', (req, res, next) => {
   const id = req.params.id;
   const rating = req.params.rating;
-  db.getRatedReviews(id, rating);
+  console.log(id, 'IDDDD')
+  console.log(rating, 'RATINGGGGG')
+  db.getRatedReviews(id, rating).then((ratedReviews) => {
+    res.send(ratedReviews)
+  })
+  .catch(next);
 })
 
 // post review
