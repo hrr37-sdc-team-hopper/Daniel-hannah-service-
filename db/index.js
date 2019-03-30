@@ -5,14 +5,23 @@ const faker = require('faker');
 const connection = mysql.createConnection(config);
 
 const getReviews = (id) => {
-  const queryString = 'select * from reviews where id = ?'
-  connection.query(queryString, id);
+  // const queryString = 'select * from reviews where id = ?'
+  // connection.query(queryString, id);
+  return new Promise((resolve, reject) => {
+    const queryString = 'select * from reviews where id = ?'
+    connection.query(queryString, id, (err, result) => {
+      if (err) { reject (err) }
+      resolve(result)
+    })
+  })
 }
+
+
 
 const getRatedReviews = (id, rating) => {
   const queryString = "select * from reviews where (id = ?, rating = ?)"
   let params = [id, rating];
-  connection.query(querystring, params);
+  connection.query(queryString, params);
 }
 
 const postReview = (id, review, rating) => {
