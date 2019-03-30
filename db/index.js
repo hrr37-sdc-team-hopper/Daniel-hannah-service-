@@ -55,18 +55,18 @@ seedUsers()
   let queryString = 'select count(*) as count from users';
   connection.query(queryString, (err, result) => {
     if (err){console.log(err)}
-    if (result[0].count === 100) {
+    if (result[0].count >= 100) {
       connection.end();
     }
   });
 })
 
 
-connection.connect((err) => {
-  if (err) {
-    console.log(err, 'ERROR')
-  }
-  console.log('connected')
-})
+// connection.connect((err) => {
+//   if (err) {
+//     console.log(err, 'ERROR')
+//   }
+//   console.log('connected')
+// })
 
 exports.connection = connection;
