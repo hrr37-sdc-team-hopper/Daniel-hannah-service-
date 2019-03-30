@@ -10,7 +10,7 @@
   "scripts": {
     "start:dev": "nodemon server/index.js -w db -w server",
     "build:dev": "webpack -d --watch",
-    "seed-db": "mysql -u root < schema.sql"
+    "seed-db": "mysql -u root < schema.sql && node db/index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
