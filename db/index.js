@@ -4,12 +4,26 @@ const faker = require('faker');
 // const data = require('./data-functions.js')
 const connection = mysql.createConnection(config);
 
+const getReviews = (id) => {
+  const queryString = 'select * from reviews where id = ?'
+  connection.query(queryString, id);
+}
+
+const getRatedReviews = (id, rating) => {
+  const queryString = "select * from reviews where (id = ?, rating = ?)"
+  let params = [id, rating];
+  connection.query(querystring, params);
+}
+
+const postReview = (id, review, rating) => {
+  const queryString = 'insert into reviews (review, rating) values (?, ?) where id = ?'
+}
+
 const createFakeUser = () => ({
   username: faker.internet.userName(),
   // avatar: faker.image.imageUrl()
 });
 
-// functions to query database
 const seedUsers = async (func) => {
   for (let i = 0; i < 100; i++) {
     let queryString = 'INSERT INTO users (username) VALUES (?)'
@@ -41,14 +55,6 @@ const seedReviews = (reviews) => {
   })
 }
 
-// const check = () => {
-//   let queryString = 'select count(*) from users';
-//   let count = connection.query(queryString);
-//   if (count < 100) {
-//      seedUsers();
-//   }
-// }
-
 
 seedUsers()
 .then(() => {
@@ -69,4 +75,9 @@ connection.connect((err) => {
   console.log('connected')
 })
 
-exports.connection = connection;
+module.exports = {
+  connection,
+  getReviews,
+  getRatedReviews,
+  postReview
+}
