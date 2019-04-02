@@ -21,7 +21,7 @@ const seedUsers = async () => {
 
 
 const seedReviews = async () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) {
     const review = {};
     review.date = faker.date.past();
     review.review = faker.lorem.paragraph();
@@ -41,3 +41,7 @@ seedAllData().then(() => {
   console.log('seeding is finished!');
   connection.end();
 });
+
+module.exports = {
+  seedAllData
+};
