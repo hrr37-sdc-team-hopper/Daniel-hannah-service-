@@ -34,7 +34,6 @@ const getReviews = (id) => {
   })
 }
 
-
 const getRatedReviews = (id, rating) => {
   return new Promise((resolve, reject) => {
     const sql = 'select * from reviews where (id = ?, rating = ?)';
@@ -46,19 +45,6 @@ const getRatedReviews = (id, rating) => {
   })
 }
 
-<<<<<<< HEAD
-=======
-seedUsers()
-.then(() => {
-  let queryString = 'select count(*) as count from users';
-  connection.query(queryString, (err, result) => {
-    if (err){console.log(err)}
-    if (result[0].count >= 100) {
-      connection.end();
-    }
-  });
-})
->>>>>>> DB
 
 const postReview = (id, review, rating) => {
   return new Promise((resolve, reject) => {
@@ -71,15 +57,6 @@ const postReview = (id, review, rating) => {
   })
 }
 
-<<<<<<< HEAD
-=======
-// connection.connect((err) => {
-//   if (err) {
-//     console.log(err, 'ERROR')
-//   }
-//   console.log('connected')
-// })
->>>>>>> DB
 
 module.exports = {
   insertUser,
