@@ -10,7 +10,7 @@
   "scripts": {
     "start:dev": "nodemon server/index.js -w db -w server",
     "build:dev": "webpack -d --watch",
-    "seed-db": "mysql -u root < schema.sql && node db/index.js",
+    "seed-db": "mysql -u root < schema.sql && node db/seed.js",
     "lint": "eslint ."
   },
   "dependencies": {
