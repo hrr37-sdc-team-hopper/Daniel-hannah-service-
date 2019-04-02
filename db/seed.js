@@ -1,6 +1,6 @@
 const faker = require('faker');
 const db = require('./index.js');
-const { connection } = require('./index.js').connection;
+const { connection } = require('./index.js');
 
 const seedUsers = async () => {
   for (let i = 0; i < 100; i++) {
