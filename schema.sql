@@ -15,20 +15,23 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE image (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT,
+  image varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+)
+
 CREATE TABLE reviews (
   id int NOT NULL AUTO_INCREMENT,
-  user_id INT default null,
-  book_id INT default null,
+  user_id INT,
+  book_id INT,
   date date,
   review varchar(1000) NOT NULL,
   rating INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (user_id)
-    REFERENCES users (id)
-  -- FOREIGN KEY (book_id)
-  --   REFERENCES books (id)
-
+  PRIMARY KEY (id)
 );
+
 
 
 
