@@ -1,8 +1,6 @@
 const db = require('./index.js');
 const faker = require('faker');
-const mysql = require('mysql');
-const connection = mysql.createConnection(config);
-
+const connection = require('./index.js').connection;
 
 const seedUsers = async () => {
   for (let i = 0; i < 100; i++) {
@@ -12,14 +10,13 @@ const seedUsers = async () => {
 }
 
 const seedReviews = async () => {
-  for (let j = 0; j < 100; j++) {
+  for (let i = 0; i < 100; i++) {
     let review = {};
     review.date = faker.date.past();
     review.review = faker.lorem.paragraph();
     review.rating = ( Math.floor(Math.random() * 5) + 1 );
     review.book_id = ( Math.floor(Math.random() * 100) + 1 );
     review.user_id = ( Math.floor(Math.random() * 100) + 1 );
-
     await db.insertReview(review);
   }
 
@@ -29,6 +26,7 @@ const seedAllData = async () => {
 }
 
 seedAllData().then(() => {
+  console.log('seeding is finished!')
   connection.end();
   })
 }
