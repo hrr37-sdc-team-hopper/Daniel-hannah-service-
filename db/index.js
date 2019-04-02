@@ -2,6 +2,13 @@ const mysql = require('mysql');
 const config = require('./config.js');
 const connection = mysql.createConnection(config);
 
+connection.connect(err => {
+  if (err) {
+    console.log(err, 'ERROR CONNECTING')
+  } else {
+    console.log('connected')
+  }
+});
 
 const insertUser  = (username) => {
   return new Promise((resolve, reject) => {
@@ -63,5 +70,6 @@ module.exports = {
   insertReview,
   getReviews,
   getRatedReviews,
-  postReview
+  postReview,
+  connection
 }
