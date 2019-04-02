@@ -12,7 +12,6 @@ app.use('/books/:id', express.static(__dirname + '/../client/dist'))
 // get all reviews
 app.get('/books/:id/reviews', (req, res, next) => {
   const id = req.params.id;
-
   db.getReviews(id).then((reviews) => {
     res.send(reviews)
   })
