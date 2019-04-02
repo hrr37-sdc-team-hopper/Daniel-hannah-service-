@@ -10,8 +10,8 @@ USE bookshelf;
 -- );
 
 CREATE TABLE users (
-  id int not null auto_increment,
-  username varchar(50) not null,
+  id INT NOT NULL AUTO_INCREMENT,
+  username varchar(50) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE image (
   user_id INT,
   image varchar(100) NOT NULL,
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE reviews (
   id int NOT NULL AUTO_INCREMENT,
