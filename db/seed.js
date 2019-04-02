@@ -4,14 +4,25 @@ const { connection } = require('./index.js').connection;
 
 const seedUsers = async () => {
   for (let i = 0; i < 100; i++) {
-    let user = { username: faker.internet.userName() };
+    const user = { username: faker.internet.userName() };
     await db.insertUser(user);
   }
 };
 
+// const seedUsers = async () => {
+//   let promisesToAwait = [];
+//   for (let i = 0; i < 100; i++) {
+//     let user = { username: faker.internet.userName() };
+//     promisesToAwait.push(db.insertUser(user));
+//     // await db.insertUser(user);
+//   }
+//   await Promise.all(promisesToAwait);
+// };
+
+
 const seedReviews = async () => {
   for (let i = 0; i < 100; i++) {
-    let review = {};
+    const review = {};
     review.date = faker.date.past();
     review.review = faker.lorem.paragraph();
     review.rating = (Math.floor(Math.random() * 5) + 1);

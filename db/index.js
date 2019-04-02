@@ -11,20 +11,20 @@ connection.connect((err) => {
   }
 });
 
-const insertUser = (username) => {
+const insertUser = (user) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO users (username) VALUES (?)';
-    connection.query(sql, username, (err, result) => {
+    connection.query(sql, user.username, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
     });
   });
 };
 
-const insertReview = (date, review, rating, book_id, user_id) => {
+const insertReview = (review) => {
   return new Promise((resolve, reject) => {
-    const sql = 'insert into reviews (date, review, rating, book_id, user_id) values (?, ?, ?, ?, ?)';
-    const params = [date, review, rating, book_id, user_id];
+    const sql = 'insert into reviews (user_id, book_id, date, review, rating) values (?, ?, ?, ?, ?)';
+    const params = [review.user_id, review.book_id, review.date, review.review, review.rating];
     connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
