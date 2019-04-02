@@ -48,11 +48,13 @@ const getRatedReviews = (id, rating) => {
 
 
 const postReview = (id, review, rating) => {
-  const sql = 'insert into reviews (review, rating) values (?, ?) where id = ?';
-  const params = [id, review, rating];
-  connection.query(sql, params, (err, result) => {
-    if (err) { reject (err) }
-    resolve(result);
+  return new Promise((resolve, reject) => {
+    const sql = 'insert into reviews (review, rating) values (?, ?) where id = ?';
+    const params = [id, review, rating];
+    connection.query(sql, params, (err, result) => {
+      if (err) { reject (err) }
+      resolve(result);
+    })
   })
 }
 
