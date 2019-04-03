@@ -80,9 +80,9 @@ describe('GET /books/:id/reviews', () => {
   });
 });
 
-describe('POST /books/:id, () => {
-    test('It should post a review and get all reviews', () => {
-      const response = request(app).post('/books/1');
-      expect(response.body).toBe()
-    })
-  ')
+describe('POST /books/:id', () => {
+  test('It should post a review and get all reviews', () => {
+    const response = request(app).post('/books/1');
+    expect(response.body).toBe();
+  });
+});

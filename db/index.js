@@ -33,8 +33,9 @@ const insertReview = (review) => {
 };
 
 const getReviews = (id) => {
+  console.log(id);
   return new Promise((resolve, reject) => {
-    const sql = 'select * from reviews where id = ?';
+    const sql = 'select * from reviews where book_id = ?';
     connection.query(sql, id, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
