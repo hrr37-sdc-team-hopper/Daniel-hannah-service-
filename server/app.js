@@ -30,12 +30,14 @@ app.get('/books/:id/reviews', (req, res) => {
 
 
 // get reviews w/ specific rating
-app.get('books/:id/reviews/:rating', (req, res, next) => {
+app.get('/books/:id/reviews/:rating', (req, res) => {
   const { id, rating } = req.params;
   db.getRatedReviews(id, rating).then((ratedReviews) => {
     res.send(ratedReviews);
   })
-    .catch(next);
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 // post review

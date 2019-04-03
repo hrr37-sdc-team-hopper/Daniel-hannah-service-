@@ -33,7 +33,6 @@ const insertReview = (review) => {
 };
 
 const getReviews = (id) => {
-  console.log(id);
   return new Promise((resolve, reject) => {
     const sql = 'select * from reviews where book_id = ?';
     connection.query(sql, id, (err, result) => {
@@ -45,8 +44,8 @@ const getReviews = (id) => {
 
 const getRatedReviews = (id, rating) => {
   return new Promise((resolve, reject) => {
-    const sql = 'select * from reviews where (id = ?, rating = ?)';
     const params = [id, rating];
+    const sql = 'select * from reviews where (book_id = ?) and (rating = ?)';
     connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
@@ -57,8 +56,8 @@ const getRatedReviews = (id, rating) => {
 
 const postReview = (id, review, rating) => {
   return new Promise((resolve, reject) => {
-    const sql = 'insert into reviews (review, rating) values (?, ?) where id = ?';
-    const params = [id, review, rating];
+    const sql = 'insert into reviews (review, rating) values (?, ?) where book_id = ?';
+    const params = [review, rating, book_id];
     connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
