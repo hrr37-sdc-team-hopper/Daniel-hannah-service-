@@ -11,36 +11,30 @@ app.use('/books/:id', express.static(path.join(__dirname, '/../public')));
 
 // get and post routes to interact with database here
 
-// get all reviews
-app.get('/books/:id/reviews', (req, res) => {
+// get all reviews for specific book id
+app.get('/books/:id/reviews', async (req, res) => {
   const { id } = req.params;
-  db.getReviews(id).then((reviews) => {
-    res.send(reviews);
-  });
+  try {
+    const reviews = await db.getReviews(id);
+    res.json(reviews);
+  } catch (err) {
+    res.json(err);
+  }
 });
-// app.get('books/:id/reviews', async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const reviews = await db.getReviews(id);
-//     res.json(reviews);
-//   } catch (err) {
-//     res.json(err);
-//   }
-// });
 
 
-// get reviews w/ specific rating
-app.get('/books/:id/reviews/:rating', (req, res) => {
+// get reviews for specific book w/ specific rating
+app.get('/books/:id/reviews/:rating', async (req, res) => {
   const { id, rating } = req.params;
-  db.getRatedReviews(id, rating).then((ratedReviews) => {
-    res.send(ratedReviews);
-  })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    const ratedReviews = await db.getRatedReviews(id, rating);
+    res.json(ratedReviews);
+  } catch (err) {
+    res.json(err);
+  }
 });
 
-// post review
+// post review for specific book
 app.post('books/:id/reviews', (req, res) => {
   const { id } = req.params;
   const { review, rating } = req.body;
