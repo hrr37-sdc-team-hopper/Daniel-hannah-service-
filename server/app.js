@@ -19,6 +19,8 @@ app.get('/books/:id/reviews', (req, res, next) => {
     .catch(next);
 });
 
+// try catch
+
 // get reviews w/ specific rating
 app.get('books/:id/reviews/:rating', (req, res, next) => {
   const { id, rating } = req.params;
