@@ -23,34 +23,42 @@ const getRandomInt = (min, max) => {
 //   await db.connection.end();
 // });
 
-describe('GET /books/:id/reviews', () => {
-  test('It should response with status code 200', () => {
-    // const response = await request(app).get(`/books/${getRandomInt}/reviews`);
-    // expect(response.body.statusCode).toBe(200);
-    request(app).get(`/books/${getRandomInt}/reviews`).then((response) => {
-      expect(typeof response.params.id).toBe('number');
-    }).then((response) => {
-      expect(response.body.statusCode).toBe(200);
-    });
+describe('Testing routes', () => {
+  beforeAll(() => {
+    db.connection.connect();
   });
 
-  test('It should have property reviews on body', () => {
-    request(app).get(`/books/${getRandomInt}/reviews`).then((response) => {
-      expect(response.body[0]).toEqual(expect.objectContaining({
-        user_id: expect.any(Number),
-        book_id: expect.toBe(response.params.id),
-        date: expect.any(String),
-        review: expect.any(String),
-        rating: expect.any(Number)
-      }));
-    });
-    // const reviews = response.body.reviews;
-    // await expect(response.body[0]).toEqual(expect.objectContaining({
-    //   user_id: expect.any(Number),
-    //   book_id: expect.toBe(id),
-    //   date: expect.any(String),
-    //   review: expect.any(String),
-    //   rating: expect.any(Number)
-    // }));
+  afterAll((done) => {
+    db.connection.end(done);
+  });
+});
+
+describe('GET /books/:id/reviews', () => {
+  test('It should response with status code 200', async () => {
+    // request(app).get(`/books/${getRandomInt()}/reviews`).then((response) => {
+    //   expect(response.statusCode).toBe(200);
+    //   done();
+    const response = await request(app).get(`/books/${getRandomInt()}/reviews`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test('It should have property reviews on body', async () => {
+    // request(app).get(`/books/${getRandomInt()}/reviews`).then((response) => {
+    //   expect(response.body[0]).toEqual(expect.objectContaining({
+    //     user_id: expect.any(Number),
+    //     book_id: expect(response.body.book_id).toEqual(response.body.id),
+    //     date: expect.any(String),
+    //     review: expect.any(String),
+    //     rating: expect.any(Number)
+    //   }));
+    // });
+    const response = await request(app).get(`/books/${getRandomInt()}/reviews`);
+    expect(response.body[0]).toEqual(expect.objectContaining({
+      user_id: expect.any(Number),
+      book_id: expect(response.body.book_id).toEqual(response.body.id),
+      date: expect.any(String),
+      review: expect.any(String),
+      rating: expect.any(Number)
+    }));
   });
 });
