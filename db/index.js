@@ -63,7 +63,6 @@ const postReview = (review, rating, id) => {
     const params = [review, rating, id];
     const sql = 'insert into reviews (review, rating) values (?, ?) where book_id = ?';
     connection.query(sql, params, (err, result) => {
-      console.log(params, 'PARAMS');
       if (err) { reject(err); }
       resolve(result);
     });

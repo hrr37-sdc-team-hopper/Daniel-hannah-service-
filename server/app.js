@@ -49,7 +49,6 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
 
 // post review for specific book and get back all reviews w/ new review added
 app.post('/books/:id/reviews', async (req, res) => {
-  console.log(req.body, 'req body')
   const { review, myRating } = req.body;
   const { id } = req.params;
 
