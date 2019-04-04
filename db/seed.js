@@ -4,7 +4,10 @@ const { connection } = require('./index.js');
 
 const seedUsers = async () => {
   for (let i = 0; i < 100; i++) {
-    const user = { username: faker.internet.userName() };
+    const user = {
+      username: faker.internet.userName(),
+      avatar: `https://du1ex6u29s822.cloudfront.net/image-${i+1}.png`
+    };
     await db.insertUser(user);
   }
 };

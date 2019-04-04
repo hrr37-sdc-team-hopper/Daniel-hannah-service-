@@ -13,8 +13,9 @@ connection.connect((err) => {
 
 const insertUser = (user) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO users (username) VALUES (?)';
-    connection.query(sql, user.username, (err, result) => {
+    const sql = 'INSERT INTO users (username, avatar) VALUES (?, ?)';
+    const params = [user.username, user.avatar];
+    connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
     });
@@ -53,6 +54,25 @@ const getRatedReviews = (id, rating) => {
   });
 };
 
+const getUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    const sql = `select username from users where id = ${userId}`;
+    connection.query(sql, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
+
+const getAllUsers = () => {
+  return new Promise((resolve, reject) => {
+    const sql = 'select * from users';
+    connection.query(sql, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
 
 const postReview = (review, rating, id) => {
   console.log(review, 'REVIEW');
@@ -79,5 +99,7 @@ module.exports = {
   getReviews,
   getRatedReviews,
   postReview,
-  connection
+  connection,
+  getUser,
+  getAllUsers
 };
