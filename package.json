@@ -1,17 +1,44 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "bookshelf",
+  "version": "1.0.0",
+  "description": "Front end capstone",
   "author": "",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start:dev": "nodemon server/index.js -w db -w server",
+    "build:dev": "webpack -d --watch",
+    "seed-db": "mysql -u root < schema.sql && node db/seed.js",
+    "lint": "eslint .",
+    "test": "jest"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.6.0",
+    "babel-loader": "^8.0.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "mysql": "^2.16.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.6.0",
+    "superagent": "^5.0.2",
+    "supertest": "^4.0.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
