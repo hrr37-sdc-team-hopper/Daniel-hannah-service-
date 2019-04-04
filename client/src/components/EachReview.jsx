@@ -9,10 +9,11 @@ const ReviewContent = styled.div`
   font-size: 14px;
 `;
 
-const UserDetails = styled.p`
+const UserDetails = styled.div`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
   overflow: hidden;
+  display: block;
 `;
 
 const Image = styled.span`

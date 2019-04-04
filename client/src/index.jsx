@@ -5,11 +5,16 @@ import $ from 'jquery';
 import Reviews from './components/Reviews.jsx';
 import RatingDetails from './components/RatingDetails.jsx';
 
+const Container = styled.div`
+  float: left;
+  width: 625px;
+  padding-right: 10px;
+  padding-left: 8px;
+`;
 
 const RatingsBar = styled.div`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
 `;
-
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +30,7 @@ class App extends React.Component {
     this.getAllUsers();
   }
 
-  // REACT ROUTING
+  // IMPLEMENT REACT ROUTING
   getAllReviews() {
     $.get('/books/1/reviews', (data) => {
       this.setState({
@@ -44,7 +49,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <RatingDetails reviews={this.state.reviews}/>
         <br />
         <RatingsBar>
@@ -52,13 +57,11 @@ class App extends React.Component {
           <span> | </span>
           <span>Sort order</span>
         </RatingsBar>
-        <br />
         <hr />
-        <br />
         <div className="app">
           <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>
-      </div>
+      </Container>
     );
   }
 }
