@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import ReviewList from './components/ReviewList.jsx';
+import Reviews from './components/Reviews.jsx';
 
 
 class App extends React.Component {
@@ -40,7 +40,7 @@ class App extends React.Component {
       <div>
         <h1>Reviews</h1>
         <div className="app">
-          <ReviewList reviews={this.state.reviews} users={this.state.users} />
+          <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>
       </div>
     );
