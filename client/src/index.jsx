@@ -46,12 +46,15 @@ class App extends React.Component {
     return (
       <div>
         <RatingDetails reviews={this.state.reviews}/>
+        <br />
         <RatingsBar>
           <span>Filter</span>
           <span> | </span>
           <span>Sort order</span>
         </RatingsBar>
-      <hr />
+        <br />
+        <hr />
+        <br />
         <div className="app">
           <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>

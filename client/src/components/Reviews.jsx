@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import EachReview from './EachReview.jsx';
-import RatingDetails from './RatingDetails.jsx';
 
 const Reviews = (props) => {
+  const block = {
+    display: 'block',
+  };
+
   return (
 
-      <div className="reviews">
+      <div className="reviews" style={block}>
         {props.reviews.map((review, index) => {
           return (
             <div className="review-container" key ={index}>
