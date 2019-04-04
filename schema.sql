@@ -22,7 +22,7 @@ CREATE TABLE reviews (
   user_id INT,
   book_id INT,
   date varchar(100),
-  review varchar(1000) NOT NULL,
+  review varchar(5000) NOT NULL,
   rating INT NOT NULL,
   PRIMARY KEY (id)
 );
