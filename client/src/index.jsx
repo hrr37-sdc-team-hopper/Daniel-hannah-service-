@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import $ from 'jquery';
 import Reviews from './components/Reviews.jsx';
+import RatingDetails from './components/RatingDetails.jsx';
+
+
+const RatingsBar = styled.div`
+  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+`;
 
 
 class App extends React.Component {
@@ -38,7 +45,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Reviews</h1>
+        <RatingDetails reviews={this.state.reviews}/>
+        <RatingsBar>
+          <span>Filter</span>
+          <span> | </span>
+          <span>Sort order</span>
+        </RatingsBar>
+      <hr />
         <div className="app">
           <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>

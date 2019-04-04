@@ -1,17 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 import EachReview from './EachReview.jsx';
-import RatingDetails from './RatingDetails.jsx'
+import RatingDetails from './RatingDetails.jsx';
 
 const Reviews = (props) => {
   return (
-    <div>
-      <RatingDetails reviews={props.reviews}/>
-      <span>
-        <div>Filter</div>
-        <div> | </div>
-        <div>Sort order</div>
-      </span>
-      <hr />
+
       <div className="reviews">
         {props.reviews.map((review, index) => {
           return (
@@ -21,7 +15,6 @@ const Reviews = (props) => {
           );
         })}
       </div>
-    </div>
   );
 };
 

@@ -1,4 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const RatingDetailsBar = styled.div`
+  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  `;
 
 class RatingDetails extends React.Component {
   constructor(props) {
@@ -15,11 +20,15 @@ class RatingDetails extends React.Component {
   render() {
     return (
       <div>
+        <RatingDetailsBar>
         <p>COMMUNITY REVIEWS</p>
         <hr />
-        {/* <StarRating /> */}
-        <p>Rating details</p>
-        <p>{this.props.reviews.length} ratings</p>
+        {/* <AvgStarRating /> */}
+
+          <span>Rating details • </span>
+          <span>{this.props.reviews.length} ratings</span>
+        </RatingDetailsBar>
+
       </div>
     );
   }

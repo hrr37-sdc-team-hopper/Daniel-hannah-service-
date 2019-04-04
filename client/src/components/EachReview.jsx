@@ -1,5 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
+
+
+const ReviewContent = styled.div`
+  font-family: Merriweather, Georgia, serif;
+  line-height: 21px;
+  font-size: 14px;
+`;
+
+const UserDetails = styled.div`
+  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px
+`;
 
 class EachReview extends React.Component {
   constructor(props) {
@@ -9,7 +22,6 @@ class EachReview extends React.Component {
     };
   }
 
-
   render() {
     return (
       <div>
@@ -18,10 +30,16 @@ class EachReview extends React.Component {
             return (
               <div key={index}>
                 <img src={user.avatar} alt="" />
-                <p>{user.username} rated it </p>
-                <StarRatings rating={this.props.rating} starRatedColor="orange" numberOfStars={5} name="rating" />
-                <p>{this.props.date}</p>
-                <p>{this.props.review}</p>
+                <UserDetails>
+                  <p>{user.username} rated it </p>
+                  <StarRatings rating={this.props.rating} starRatedColor="orange" numberOfStars={5} name="rating" />
+                  <p>{this.props.date}</p>
+
+                </UserDetails>
+                <ReviewContent>
+                  <p>{this.props.review}</p>
+                </ReviewContent>
+
               </div>
             )
           }
