@@ -49,8 +49,10 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
 
 // post review for specific book and get back all reviews w/ new review added
 app.post('/books/:id/reviews', async (req, res) => {
-  const { review, myRating } = req.body;
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+  const myRating = parseInt(req.body.myRating);
+  const { review } = req.body;
+  // const { id } = req.params;
 
   try {
     await db.postReview(review, myRating, id);

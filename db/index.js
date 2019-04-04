@@ -60,8 +60,11 @@ const postReview = (review, rating, id) => {
   console.log(id, 'IDDDD');
 
   return new Promise((resolve, reject) => {
-    const params = [review, rating, id];
-    const sql = 'insert into reviews (review, rating) values (?, ?) where book_id = ?';
+    let date = new Date();
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+
+    const params = [review, rating, id, date];
+    const sql = 'insert into reviews (review, rating, book_id, date) values (?, ?, ?, ?)';
     connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
