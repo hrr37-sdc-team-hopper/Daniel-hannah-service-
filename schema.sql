@@ -21,7 +21,7 @@ CREATE TABLE reviews (
   id int NOT NULL AUTO_INCREMENT,
   user_id INT,
   book_id INT,
-  date date,
+  date varchar(100),
   review varchar(1000) NOT NULL,
   rating INT NOT NULL,
   PRIMARY KEY (id)

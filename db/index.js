@@ -75,13 +75,10 @@ const getAllUsers = () => {
 };
 
 const postReview = (review, rating, id) => {
-  console.log(review, 'REVIEW');
-  console.log(rating, 'RATING');
-  console.log(id, 'IDDDD');
-
   return new Promise((resolve, reject) => {
     let date = new Date();
-    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    date = date.toString();
+    date = date.slice(4, 10) + ', ' + date.slice(11, 15);
 
     const params = [review, rating, id, date];
     const sql = 'insert into reviews (review, rating, book_id, date) values (?, ?, ?, ?)';

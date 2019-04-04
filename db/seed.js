@@ -26,7 +26,7 @@ const seedUsers = async () => {
 const seedReviews = async () => {
   for (let i = 0; i < 1000; i++) {
     const review = {};
-    review.date = faker.date.past();
+    review.date = faker.date.month() + ' ' + faker.random.number({'min': 1, 'max':30}) + ', ' + (Math.floor(Math.random() * (2019-1996)) + 1996);
     review.review = faker.lorem.paragraph();
     review.rating = (Math.floor(Math.random() * 5) + 1);
     review.book_id = (Math.floor(Math.random() * 100) + 1);
