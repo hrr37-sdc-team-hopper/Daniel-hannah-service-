@@ -35,17 +35,26 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
   }
 });
 
-// post review for specific book
-// app.post('/books/:id/reviews', (req, res) => {
-//   const { id } = req.params;
-//   const { review, rating } = req.body;
-
-//   db.postReview(id, review, rating).then(() => {
-//     db.getReviews(id);
-//   }).then((reviews) => {
-//     res.send(reviews);
-//   });
+// app.get('/books/:id/users', async (req, res) => {
+//   console.log(req.body)
+//   const { userId } = req.body;
+//   try {
+//     const user = await db.getUser(userId);
+//     res.json(user);
+//   } catch (err) {
+//     res.json(err);
+//   }
 // });
+
+app.get('/books/:id/users', async (req, res) => {
+  // const { id } = req.params;
+  try {
+    const users = await db.getAllUsers();
+    res.json(users);
+  } catch (err) {
+    res.json(err);
+  }
+});
 
 // post review for specific book and get back all reviews w/ new review added
 app.post('/books/:id/reviews', async (req, res) => {
