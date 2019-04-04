@@ -9,9 +9,15 @@ const ReviewContent = styled.div`
   font-size: 14px;
 `;
 
-const UserDetails = styled.div`
+const UserDetails = styled.p`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
-  font-size: 14px
+  font-size: 14px;
+  overflow: hidden;
+`;
+
+const Image = styled.span`
+  margin-right: 10px;
+  float: left;
 `;
 
 class EachReview extends React.Component {
@@ -23,22 +29,33 @@ class EachReview extends React.Component {
   }
 
   render() {
+    const thick = {
+      fontWeight: 'bold',
+    };
+
+    const float = {
+      float: 'right',
+    };
+
     return (
       <div>
         {this.props.users.map((user, index) => {
           if (user.id === this.props.userId) {
             return (
               <div key={index}>
-                <img src={user.avatar} alt="" />
+                <Image>
+                  <img src={user.avatar} alt="" />
+                </Image>
                 <UserDetails>
-                  <p>{user.username} rated it </p>
-                  <StarRatings rating={this.props.rating} starRatedColor="orange" numberOfStars={5} name="rating" />
-                  <p>{this.props.date}</p>
-
-                </UserDetails>
-                <ReviewContent>
+                  <span style={thick}>{user.username} </span>
+                  <span>rated it </span>
+                  <StarRatings rating={this.props.rating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
+                  <span style={float}>{this.props.date}</span>
+                  <ReviewContent>
                   <p>{this.props.review}</p>
                 </ReviewContent>
+                </UserDetails>
+
 
               </div>
             )
