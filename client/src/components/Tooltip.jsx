@@ -12,8 +12,11 @@ const Rating = styled.a`
 
 const ToolTipBox = styled.div`
   border: 10px solid #D6D0C4;
+  background-color: white;
   position: absolute;
-
+  border-radius: 10px;
+  opacity: 1;
+  filter: alpha(opacity=100);
 
 `;
 

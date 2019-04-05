@@ -21,7 +21,7 @@ const StyledLink = styled.a`
   &:hover {text-decoration: underline};
   display: inline-block;
   position: relative;
-  flex-basis: 560px
+  flex-basis: 400px;
 `;
 
 const Search = styled.span`
@@ -108,13 +108,14 @@ class App extends React.Component {
         <br />
         <Align>
           <Filter reviews={this.state.reviews} />
-          <span>  |  </span>
-          <StyledLink> Sort order</StyledLink>
+          <span>|</span>
+          <StyledLink>Sort order</StyledLink>
+          <Search>
+            <input value="Search review text" />
+          </Search>
         </Align>
-        <Search>
-          <input value="Search review text" />
-        </Search>
         <hr />
+        <br />
         <div>
           <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>

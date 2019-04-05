@@ -11,10 +11,13 @@ const StyledLink = styled.a`
   display: inline-block
 `;
 
-
-
 const Search = styled.span`
   float: right;
+`;
+
+const Opacity = styled.div`
+  opacity: 1;
+
 `;
 
 class Filter extends React.Component {
@@ -38,7 +41,7 @@ class Filter extends React.Component {
   render() {
     return (
       <div>
-        <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter </StyledLink>
+        <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter</StyledLink>
         <Tooltip interactive reviews={this.props.reviews} display={this.state.displayTooltip} />
       </div>
     );
