@@ -44,18 +44,27 @@ class App extends React.Component {
       reviews: [],
       users: [],
       ratings: [],
-      // five: 0,
-      // four: 0,
-      // three: 0,
-      // two: 0,
-      // one: 0
+      five: 0,
+      four: 0,
+      three: 0,
+      two: 0,
+      one: 0
     };
   }
+
+  // componentDidMount() {
+  //   fetch(this.getAllReviews())
+  //     .then(() => {
+  //       this.sortByRating();
+  //     })
+  //     .then(() => {
+  //       this.getAllUsers();
+  //     });
+  // }
 
   componentDidMount() {
     this.getAllReviews();
     this.getAllUsers();
-    // this.sortByRating();
   }
 
   // IMPLEMENT REACT ROUTING
@@ -77,6 +86,28 @@ class App extends React.Component {
       });
     });
   }
+
+  // sortByRating() {
+  //   console.log(this.state.reviews, 'reviews')
+  //   this.state.ratings.map((rating) => {
+  //     if (rating === 5) {
+  //       this.setState({ five: (this.state.five + 1) });
+  //     }
+  //     if (rating === 4) {
+  //       this.setState({ four: (this.state.four + 1) });
+  //     }
+  //     if (rating === 3) {
+  //       this.setState({ three: (this.state.three + 1) });
+  //     }
+  //     if (rating === 2) {
+  //       this.setState({ two: (this.state.two + 1) });
+  //     }
+  //     if (rating === 1) {
+  //       this.setState({ one: (this.state.one + 1) });
+  //     }
+  //     this.setState({ all: this.props.ratings.length })
+  //   });
+  // }
 
   render() {
     return (

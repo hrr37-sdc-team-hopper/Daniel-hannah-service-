@@ -9,13 +9,13 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-react', '@babel/preset-env']
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
-   output: {
+  output: {
     filename: 'bundle.js',
     path: __dirname + '/public'
-  }
+  },
 };
