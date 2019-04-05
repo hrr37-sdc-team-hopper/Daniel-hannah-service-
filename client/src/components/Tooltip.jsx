@@ -4,6 +4,17 @@ import styled from 'styled-components';
 const Rating = styled.a`
   color: #00635d;
   textDecoration: none;
+  &:hover {text-decoration: underline};
+  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  cursor: pointer;
+  padding: 5px;
+  position: relative;
+`;
+
+const All = styled.a`
+  color: #999999;
+  textDecoration: none;
+  &:hover {text-decoration: underline};
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
   cursor: pointer;
   padding: 5px;
@@ -15,17 +26,51 @@ const ToolTipBox = styled.div`
   background-color: white;
   position: absolute;
   border-radius: 10px;
-  opacity: 1;
-  filter: alpha(opacity=100);
-
+  opacity: 1 !important;
+  interactive: true;
+  padding: 8px;
 `;
 
 class Tooltip extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      five: 0,
+      four: 0,
+      three: 0,
+      two: 0,
+      one: 0,
+      all: 0
     };
+    this.sortByRating = this.sortByRating.bind(this);
   }
+
+  componentDidMount() {
+    this.sortByRating();
+  }
+
+  sortByRating() {
+    console.log(this.props.ratings)
+    this.props.ratings.map((rating) => {
+      if (rating === 5) {
+        this.setState({ five: (this.state.five + 1) });
+      }
+      if (rating === 4) {
+        this.setState({ four: (this.state.four + 1) });
+      }
+      if (rating === 3) {
+        this.setState({ three: (this.state.three + 1) });
+      }
+      if (rating === 2) {
+        this.setState({ two: (this.state.two + 1) });
+      }
+      if (rating === 1) {
+        this.setState({ one: (this.state.one + 1) });
+      }
+      this.setState({ all: this.props.ratings.length })
+    });
+  }
+
 
   render() {
     console.log(this.props.display)
@@ -35,17 +80,17 @@ class Tooltip extends React.Component {
           (
             <ToolTipBox>
               <span>
-                <Rating>All</Rating>
+                <All>all ({this.state.all})</All>
                 <span> | </span>
-                <Rating>5 stars</Rating>
+                <Rating>5 stars ({this.state.five})</Rating>
                 <span> | </span>
-                <Rating>4 stars</Rating>
+                <Rating>4 stars ({this.state.four})</Rating>
                 <span> | </span>
-                <Rating>3 stars</Rating>
+                <Rating>3 stars ({this.state.three})</Rating>
                 <span> | </span>
-                <Rating>2 stars</Rating>
+                <Rating>2 stars ({this.state.two})</Rating>
                 <span> | </span>
-                <Rating>1 star</Rating>
+                <Rating>1 star ({this.state.one})</Rating>
               </span>
             </ToolTipBox>
           ) : (null)

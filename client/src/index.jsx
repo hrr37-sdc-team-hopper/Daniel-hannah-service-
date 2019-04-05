@@ -78,36 +78,13 @@ class App extends React.Component {
     });
   }
 
-
-  // sortByRating() {
-  //   console.log(this.state.reviews)
-  //   this.state.reviews.map((review) => {
-  //     if (review.rating === 5) {
-  //       this.setState({ five: (this.state.five + 1) });
-  //     }
-  //     if (review.rating === 4) {
-  //       this.setState({ four: (this.state.five + 1) });
-  //     }
-  //     if (review.rating === 3) {
-  //       this.setState({ three: (this.state.five + 1) });
-  //     }
-  //     if (review.rating === 2) {
-  //       this.setState({ two: (this.state.five + 1) });
-  //     }
-  //     if (review.rating === 1) {
-  //       this.setState({ one: (this.state.five + 1) });
-  //     }
-  //   });
-  // }
-
-
   render() {
     return (
       <Container className="app">
         <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
         <Align>
-          <Filter reviews={this.state.reviews} />
+          <Filter reviews={this.state.reviews} ratings={this.state.ratings}/>
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
