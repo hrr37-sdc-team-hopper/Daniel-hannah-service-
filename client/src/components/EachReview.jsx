@@ -9,10 +9,12 @@ const ReviewContent = styled.div`
   font-size: 14px;
 `;
 
-const User = styled.span`
+const User = styled.a`
   color: #00635d;
   font-weight: bold;
-  text-decoration: none
+  text-decoration: none;
+  &:hover {text-decoration: underline};
+  cursor: pointer
 `;
 
 const UserDetails = styled.div`
@@ -22,7 +24,7 @@ const UserDetails = styled.div`
   display: block;
 `;
 
-const Image = styled.span`
+const Image = styled.a`
   margin-right: 10px;
   float: left;
 `;

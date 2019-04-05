@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import $ from 'jquery';
 import Reviews from './components/Reviews.jsx';
 import RatingDetails from './components/RatingDetails.jsx';
+import Filter from './components/Filter.jsx'
 
 const Container = styled.div`
   float: left;
@@ -12,8 +13,27 @@ const Container = styled.div`
   padding-left: 8px;
 `;
 
-const RatingsBar = styled.div`
+const StyledLink = styled.a`
+  color: #00635d;
+  textDecoration: none;
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  cursor: pointer;
+  &:hover {text-decoration: underline};
+  display: inline-block;
+  position: relative;
+  flex-basis: 560px
+`;
+
+const Search = styled.span`
+  float: right;
+`;
+
+const Align = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 10px;
+
 `;
 
 
@@ -23,19 +43,25 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       users: [],
-      ratings: []
+      ratings: [],
+      // five: 0,
+      // four: 0,
+      // three: 0,
+      // two: 0,
+      // one: 0
     };
   }
 
   componentDidMount() {
     this.getAllReviews();
     this.getAllUsers();
+    // this.sortByRating();
   }
 
   // IMPLEMENT REACT ROUTING
   getAllReviews() {
     $.get('/books/1/reviews', (data) => {
-      let ratings = []
+      let ratings = [];
       data.map((review) => { ratings.push(review.rating) });
       this.setState({
         reviews: data,
@@ -48,33 +74,48 @@ class App extends React.Component {
     $.get('/books/1/users', (data) => {
       this.setState({
         users: data
-      })
-    })
+      });
+    });
   }
 
-  render() {
-    const float = {
-      float: 'right',
-    };
-    const green = {
-      color: '#00635d',
-      textDecoration: 'none',
-    };
 
+  // sortByRating() {
+  //   console.log(this.state.reviews)
+  //   this.state.reviews.map((review) => {
+  //     if (review.rating === 5) {
+  //       this.setState({ five: (this.state.five + 1) });
+  //     }
+  //     if (review.rating === 4) {
+  //       this.setState({ four: (this.state.five + 1) });
+  //     }
+  //     if (review.rating === 3) {
+  //       this.setState({ three: (this.state.five + 1) });
+  //     }
+  //     if (review.rating === 2) {
+  //       this.setState({ two: (this.state.five + 1) });
+  //     }
+  //     if (review.rating === 1) {
+  //       this.setState({ one: (this.state.five + 1) });
+  //     }
+  //   });
+  // }
+
+
+  render() {
     return (
-      <Container>
+      <Container className="app">
         <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
-        <RatingsBar>
-          <a href="#" style={green}>Filter</a>
-          <span> | </span>
-          <a href="#" style={green}>Sort order</a>
-          <span>
-            <input style={float} value="Search review text" />
-          </span>
-        </RatingsBar>
+        <Align>
+          <Filter reviews={this.state.reviews} />
+          <span>  |  </span>
+          <StyledLink> Sort order</StyledLink>
+        </Align>
+        <Search>
+          <input value="Search review text" />
+        </Search>
         <hr />
-        <div className="app">
+        <div>
           <Reviews reviews={this.state.reviews} users={this.state.users} />
         </div>
       </Container>
