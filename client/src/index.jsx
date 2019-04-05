@@ -16,12 +16,14 @@ const RatingsBar = styled.div`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
 `;
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       reviews: [],
-      users: []
+      users: [],
+      ratings: []
     };
   }
 
@@ -33,8 +35,11 @@ class App extends React.Component {
   // IMPLEMENT REACT ROUTING
   getAllReviews() {
     $.get('/books/1/reviews', (data) => {
+      let ratings = []
+      data.map((review) => { ratings.push(review.rating) });
       this.setState({
-        reviews: data
+        reviews: data,
+        ratings: ratings
       });
     });
   }
@@ -48,14 +53,25 @@ class App extends React.Component {
   }
 
   render() {
+    const float = {
+      float: 'right',
+    };
+    const green = {
+      color: '#00635d',
+      textDecoration: 'none',
+    };
+
     return (
       <Container>
-        <RatingDetails reviews={this.state.reviews}/>
+        <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
         <RatingsBar>
-          <span>Filter</span>
+          <a href="#" style={green}>Filter</a>
           <span> | </span>
-          <span>Sort order</span>
+          <a href="#" style={green}>Sort order</a>
+          <span>
+            <input style={float} value="Search review text" />
+          </span>
         </RatingsBar>
         <hr />
         <div className="app">

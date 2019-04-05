@@ -9,6 +9,12 @@ const ReviewContent = styled.div`
   font-size: 14px;
 `;
 
+const User = styled.span`
+  color: #00635d;
+  font-weight: bold;
+  text-decoration: none
+`;
+
 const UserDetails = styled.div`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
@@ -30,9 +36,6 @@ class EachReview extends React.Component {
   }
 
   render() {
-    const thick = {
-      fontWeight: 'bold',
-    };
 
     const float = {
       float: 'right',
@@ -48,22 +51,22 @@ class EachReview extends React.Component {
                   <img src={user.avatar} alt="" />
                 </Image>
                 <UserDetails>
-                  <span style={thick}>{user.username} </span>
-                  <span>rated it </span>
+                  <User>
+                    {user.username}
+                  </User>
+                  <span> rated it </span>
                   <StarRatings rating={this.props.rating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
                   <span style={float}>{this.props.date}</span>
                   <ReviewContent>
-                  <p>{this.props.review}</p>
-                </ReviewContent>
+                    <p>{this.props.review}</p>
+                  </ReviewContent>
                 </UserDetails>
-
-
               </div>
-            )
+            );
           }
         })}
       </div>
-    )
+    );
   }
 }
 
