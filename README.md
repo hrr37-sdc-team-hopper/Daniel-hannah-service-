@@ -39,8 +39,8 @@ npm install
 ```
 
 ### To Run 
-Run 'npm run start:dev' to start server. Nodemon should be installed on your machine.
-Run 'npm run build:dev' to build files with Webpack and create bundle.js. 
-Run 'npm run seed-db' to seed the database.
-Run 'npm test" to run tests. 
+  - Run 'npm run start:dev' to start server. Nodemon should be installed on your machine.
+  - Run 'npm run build:dev' to build files with Webpack and create bundle.js. 
+  - Run 'npm run seed-db' to seed the database.
+  - Run 'npm test" to run tests. 
 
