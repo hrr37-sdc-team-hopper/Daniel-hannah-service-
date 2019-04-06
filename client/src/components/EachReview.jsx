@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
+// import StarRatingComponent from 'react-star-rating-component';
 
 
 const ReviewContent = styled.div`
