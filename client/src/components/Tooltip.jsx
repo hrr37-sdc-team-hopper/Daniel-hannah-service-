@@ -60,6 +60,7 @@ class Tooltip extends React.Component {
       one: 0,
 
     };
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   getRatings(rating) {
@@ -71,11 +72,12 @@ class Tooltip extends React.Component {
   }
 
   clickHandler(e) {
-    const rating = Number(e.target.innerHTML[0]);
-    // this.setState({
-    //   selectedRating: rating
-    // });
-    this.props.onSelectRating(rating);
+    if (e.target.innerHTML[0] === 'a') {
+      this.props.onSelectRating(e.target.innerHTML[0]);
+    } else {
+      const rating = Number(e.target.innerHTML[0]);
+      this.props.onSelectRating(rating);
+    }
   }
 
   // sortByRating() {
@@ -102,7 +104,6 @@ class Tooltip extends React.Component {
 
 
   render() {
-    console.log(this.state.five)
     return (
       <div>
         {this.props.display ?
@@ -110,17 +111,17 @@ class Tooltip extends React.Component {
             <Arrow>
             <ToolTipBox onMouseLeave={this.props.onMouseLeave} onMouseEnter={this.props.onMouseEnter}>
               <span>
-                <All>all ({this.state.all})</All>
+                <All onClick={this.clickHandler}>all ({this.state.all})</All>
                 <span> | </span>
-                <Rating onClick={this.clickHandler.bind(this)}>5 stars ({this.state.five})</Rating>
+                <Rating onClick={this.clickHandler}>5 stars ({this.state.five})</Rating>
                 <span> | </span>
-                <Rating onClick={this.clickHandler.bind(this)}>4 stars ({this.state.four})</Rating>
+                <Rating onClick={this.clickHandler}>4 stars ({this.state.four})</Rating>
                 <span> | </span>
-                <Rating  onClick={this.clickHandler.bind(this)}>3 stars ({this.state.three})</Rating>
+                <Rating onClick={this.clickHandler}>3 stars ({this.state.three})</Rating>
                 <span> | </span>
-                <Rating onClick={this.clickHandler.bind(this)}>2 stars ({this.state.two})</Rating>
+                <Rating onClick={this.clickHandler}>2 stars ({this.state.two})</Rating>
                 <span> | </span>
-                <Rating onClick={this.clickHandler.bind(this)}>1 star ({this.state.one})</Rating>
+                <Rating onClick={this.clickHandler}>1 star ({this.state.one})</Rating>
               </span>
             </ToolTipBox>
             </Arrow>
