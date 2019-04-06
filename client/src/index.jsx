@@ -58,6 +58,7 @@ class App extends React.Component {
       // two: 0,
       // one: 0,
     };
+    this.handleReviews = this.handleReviews.bind(this);
   }
 
   // componentDidMount() {
@@ -78,8 +79,8 @@ class App extends React.Component {
   // IMPLEMENT REACT ROUTING
   getAllReviews() {
     $.get('/books/1/reviews', (data) => {
-      let ratings = [];
-      data.map((review) => { ratings.push(review.rating) });
+      const ratings = [];
+      data.map((review) => { ratings.push(review.rating); });
       this.setState({
         reviews: data,
         ratings: ratings
@@ -130,12 +131,13 @@ class App extends React.Component {
   // }
 
   render() {
+    const { reviews, ratings, ratedReviews, users, rating } = this.state;
     return (
       <Container className="app">
-        <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
+        <RatingDetails reviews={reviews} ratings={ratings} />
         <br />
         <Align>
-          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleReviews.bind(this)} />
+          <Filter reviews={reviews} ratings={ratings} onSelectRating={this.handleReviews} />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
@@ -145,7 +147,7 @@ class App extends React.Component {
         <hr />
         <br />
         <div>
-          <Reviews rating={this.state.rating} ratedReviews={this.state.ratedReviews} reviews={this.state.reviews} users={this.state.users} />
+          <Reviews rating={rating} ratedReviews={ratedReviews} reviews={reviews} users={users} />
         </div>
         <AddReview />
       </Container>

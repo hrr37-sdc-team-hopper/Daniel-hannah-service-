@@ -52,18 +52,19 @@ class AddReview extends React.Component {
   }
 
   render() {
+    const { selectedRating } = this.state;
     return (
       <div>
         <Search action="/books/1/reviews" method="post" name="review">
           <TextBorder name="review" rows="10" cols="80" placeholder="Type your review here" />
           <Submit type="submit" value="Post Review" />
-        <Star>
-          <StarRatings isSelectable={true} changeRating={this.ratingHandler} rating={this.state.selectedRating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="25px" starSpacing="0px" />
-       </Star>
+          <Star>
+            <StarRatings isSelectable={true} changeRating={this.ratingHandler} rating={selectedRating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="25px" starSpacing="0px" />
+          </Star>
         </Search>
       </div>
     );
   }
-};
+}
 
 export default AddReview;

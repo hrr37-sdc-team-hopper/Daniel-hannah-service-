@@ -5,7 +5,19 @@ import StarRatings from 'react-star-ratings';
 
 const RatingDetailsBar = styled.div`
   font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
-  `;
+`;
+
+const LinkTag = styled.a`
+  color: #00635D;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {text-decoration: underline};
+`;
+
+const Header = styled.p`
+  color: #382110;
+  fontWeight: 450
+`;
 
 class RatingDetails extends React.Component {
   constructor(props) {
@@ -26,29 +38,19 @@ class RatingDetails extends React.Component {
   // }
 
   render() {
-    const ahref = {
-      color: '#00635D',
-      cursor: 'pointer',
-      textDecoration: 'none',
-    };
-
-    const header = {
-      color: '#382110',
-      fontWeight: '450',
-    };
+    const { average, reviews } = this.props;
 
     return (
       <div>
         <RatingDetailsBar>
-          <p style={header}>COMMUNITY REVIEWS</p>
+          <Header>COMMUNITY REVIEWS</Header>
           <hr />
           <StarRatings rating={4} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
-          {this.props.average}
+          {average}
           <span> 4.03  </span>
-          <a href="#" style={ahref}>Rating details</a>
-          <span> • {this.props.reviews.length} ratings</span>
+          <LinkTag href="#">Rating details</LinkTag>
+          <span> • {reviews.length} ratings</span>
         </RatingDetailsBar>
-
       </div>
     );
   }

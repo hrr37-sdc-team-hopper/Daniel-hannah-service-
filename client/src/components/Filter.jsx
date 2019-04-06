@@ -34,10 +34,12 @@ class Filter extends React.Component {
   }
 
   render() {
+    const { onSelectRating, reviews, ratings } = this.props;
+    const { displayTooltip } = this.state;
     return (
       <div>
         <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter</StyledLink>
-        <Tooltip onSelectRating={this.props.onSelectRating} interactive reviews={this.props.reviews} display={this.state.displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={this.props.ratings} />
+        <Tooltip onSelectRating={onSelectRating} interactive reviews={reviews} display={displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={ratings} />
       </div>
     );
   }
