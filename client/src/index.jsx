@@ -133,10 +133,17 @@ class App extends React.Component {
     const { reviews, ratings, ratedReviews, users, rating } = this.state;
     return (
       <Container className="app">
-        <RatingDetails reviews={reviews} ratings={ratings} />
+        <RatingDetails
+          reviews={reviews}
+          ratings={ratings}
+        />
         <br />
         <Align>
-          <Filter reviews={reviews} ratings={ratings} onSelectRating={this.handleReviews} />
+          <Filter
+            reviews={reviews}
+            ratings={ratings}
+            onSelectRating={this.handleReviews}
+          />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
@@ -146,7 +153,12 @@ class App extends React.Component {
         <hr />
         <br />
         <div>
-          <Reviews rating={rating} ratedReviews={ratedReviews} reviews={reviews} users={users} />
+          <Reviews
+            rating={rating}
+            ratedReviews={ratedReviews}
+            reviews={reviews}
+            users={users}
+          />
         </div>
         <AddReview />
       </Container>
