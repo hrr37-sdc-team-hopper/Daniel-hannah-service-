@@ -24,13 +24,26 @@ const All = styled.a`
 `;
 
 const ToolTipBox = styled.div`
-  border: 10px solid #D6D0C4;
+  border: 8px solid #D6D0C4;
   background-color: white;
   position: absolute;
-  border-radius: 8px;
+  top: 9px;
+  left: -15px;
+  border-radius: 10px;
   opacity: 1 !important;
-  interactive: true;
   padding: 8px;
+  width: 500px
+  ;
+`;
+
+const Arrow = styled.div`
+  position: absolute;
+  width: 0;
+  height: 50;
+  border-width: 11px;
+  border-style: solid;
+  border-color:  transparent transparent #D6D0C4 transparent;
+  left: 55px;
 `;
 
 class Tooltip extends React.Component {
@@ -94,6 +107,7 @@ class Tooltip extends React.Component {
       <div>
         {this.props.display ?
           (
+            <Arrow>
             <ToolTipBox onMouseLeave={this.props.onMouseLeave} onMouseEnter={this.props.onMouseEnter}>
               <span>
                 <All>all ({this.state.all})</All>
@@ -109,6 +123,7 @@ class Tooltip extends React.Component {
                 <Rating onClick={this.clickHandler.bind(this)}>1 star ({this.state.one})</Rating>
               </span>
             </ToolTipBox>
+            </Arrow>
           ) : (null)
         }
       </div>
