@@ -61,7 +61,6 @@ app.post('/books/:id/reviews', async (req, res) => {
   const id = parseInt(req.params.id);
   const myRating = parseInt(req.body.myRating);
   const { review } = req.body;
-  // const { id } = req.params;
 
   try {
     await db.postReview(review, myRating, id);

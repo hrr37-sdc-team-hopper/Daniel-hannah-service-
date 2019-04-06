@@ -19,21 +19,25 @@ class Filter extends React.Component {
     };
     this.hideTooltip = this.hideTooltip.bind(this);
     this.showTooltip = this.showTooltip.bind(this);
+    this.timeout = null;
   }
 
   hideTooltip() {
-    this.setState({ displayTooltip: false });
+    this.timeout = setTimeout(() => {
+      this.setState({ displayTooltip: false });
+    }, 500);
   }
 
   showTooltip() {
+    clearTimeout(this.timeout);
     this.setState({ displayTooltip: true });
   }
 
   render() {
     return (
       <div>
-        <StyledLink onMouseEnter={this.showTooltip}>Filter</StyledLink>
-        <Tooltip interactive reviews={this.props.reviews} display={this.state.displayTooltip} onMouseLeave={this.hideTooltip} ratings={this.props.ratings}/>
+        <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter</StyledLink>
+        <Tooltip onSelectRating={this.props.onSelectRating} interactive reviews={this.props.reviews} display={this.state.displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={this.props.ratings}/>
       </div>
     );
   }

@@ -44,11 +44,13 @@ class App extends React.Component {
       reviews: [],
       users: [],
       ratings: [],
-      five: 0,
-      four: 0,
-      three: 0,
-      two: 0,
-      one: 0
+      rating: 0,
+      ratedReviews: [],
+      // five: 0,
+      // four: 0,
+      // three: 0,
+      // two: 0,
+      // one: 0,
     };
   }
 
@@ -87,6 +89,17 @@ class App extends React.Component {
     });
   }
 
+  getRatedReviews(rating) {
+    $.get(`/books/1/reviews/${this.state.rating}`, (data) => {
+      this.setState({
+        ratedReviews: data
+      });
+    });
+  }
+
+  handleReviews(rating) {
+    this.setState({rating: rating})
+  }
   // sortByRating() {
   //   console.log(this.state.reviews, 'reviews')
   //   this.state.ratings.map((rating) => {
@@ -115,7 +128,7 @@ class App extends React.Component {
         <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
         <Align>
-          <Filter reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleRating} />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
@@ -125,7 +138,7 @@ class App extends React.Component {
         <hr />
         <br />
         <div>
-          <Reviews reviews={this.state.reviews} users={this.state.users} />
+          <Reviews ratedReviews={this.state.ratedReviews} reviews={this.state.reviews} users={this.state.users} />
         </div>
       </Container>
     );
