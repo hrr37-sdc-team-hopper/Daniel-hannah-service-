@@ -96,7 +96,6 @@ class App extends React.Component {
 
   getRatedReviews(rating) {
     $.get(`/books/1/reviews/${this.state.rating}`, (data) => {
-      console.log(data, 'data')
       this.setState({
         ratedReviews: data
       });

@@ -35,17 +35,6 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
   }
 });
 
-// app.get('/books/:id/users', async (req, res) => {
-//   console.log(req.body)
-//   const { userId } = req.body;
-//   try {
-//     const user = await db.getUser(userId);
-//     res.json(user);
-//   } catch (err) {
-//     res.json(err);
-//   }
-// });
-
 app.get('/books/:id/users', async (req, res) => {
   // const { id } = req.params;
   try {
