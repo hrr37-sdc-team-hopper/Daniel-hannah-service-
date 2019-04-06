@@ -26,6 +26,11 @@ const StyledLink = styled.a`
 
 const Search = styled.span`
   float: right;
+  color: #333333;
+  border: #DCD6CC 1px solid;
+  border-radius: 3px;
+  background: #FFFFFF;
+  resize: none
 `;
 
 const Align = styled.div`
@@ -128,11 +133,11 @@ class App extends React.Component {
         <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
         <Align>
-          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleReviews} />
+          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleReviews.bind(this)} />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
-            <input value="Search review text" />
+            <input placeholder="Search review text" />
           </Search>
         </Align>
         <hr />
