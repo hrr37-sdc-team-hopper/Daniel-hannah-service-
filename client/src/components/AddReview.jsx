@@ -1,6 +1,7 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
 import styled from 'styled-components';
+import $ from 'jquery';
 
 const Search = styled.form`
   float: left;
@@ -25,7 +26,7 @@ const Submit = styled.input`
   float: right;
   margin-top: 13px;
   margin-bottom: 30px;
-  margin-right: 4px
+  margin-right: 30px;
   border: 1px solid #D6D0C4;
   box-shadow: 0 0 10px #F4F1EA;
 `;
@@ -40,7 +41,9 @@ class AddReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedRating: 0
+      selectedRating: 0,
+      review: '',
+      userId: 101
     };
     this.ratingHandler = this.ratingHandler.bind(this);
   }
@@ -51,6 +54,17 @@ class AddReview extends React.Component {
     });
   }
 
+  reviewHandler(myReview) {
+    this.setState({
+      review: myReview
+    });
+  }
+
+  postReview() {
+    $.post('/books/1/reviews', ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
+  }
+
+
   render() {
     const { selectedRating } = this.state;
     return (
@@ -59,7 +73,17 @@ class AddReview extends React.Component {
           <TextBorder name="review" rows="10" cols="80" placeholder="Type your review here" />
           <Submit type="submit" value="Post Review" />
           <Star>
-            <StarRatings isSelectable={true} changeRating={this.ratingHandler} rating={selectedRating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="25px" starSpacing="0px" />
+            <StarRatings
+              changeRating={this.ratingHandler}
+              name="rating"
+              isSelectable={true}
+              rating={selectedRating}
+              starRatedColor="#FF7F50"
+              numberOfStars={5}
+              starDimension="25px"
+              starSpacing="0px"
+              starHoverColor="#FF7F50"
+            />
           </Star>
         </Search>
       </div>

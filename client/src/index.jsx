@@ -39,7 +39,6 @@ const Align = styled.div`
   justify-content: space-between;
   padding: 0;
   margin: 10px;
-
 `;
 
 
