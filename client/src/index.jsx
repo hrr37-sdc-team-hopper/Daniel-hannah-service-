@@ -97,8 +97,8 @@ class App extends React.Component {
     });
   }
 
-  handleReviews(rating) {
-    this.setState({rating: rating})
+  handleReviews(selectedRating) {
+    this.setState({ rating: selectedRating });
   }
   // sortByRating() {
   //   console.log(this.state.reviews, 'reviews')
@@ -128,7 +128,7 @@ class App extends React.Component {
         <RatingDetails reviews={this.state.reviews} ratings={this.state.ratings}/>
         <br />
         <Align>
-          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleRating} />
+          <Filter reviews={this.state.reviews} ratings={this.state.ratings} onSelectRating={this.handleReviews} />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
@@ -138,7 +138,7 @@ class App extends React.Component {
         <hr />
         <br />
         <div>
-          <Reviews ratedReviews={this.state.ratedReviews} reviews={this.state.reviews} users={this.state.users} />
+          <Reviews rating={this.state.rating} ratedReviews={this.state.ratedReviews} reviews={this.state.reviews} users={this.state.users} />
         </div>
       </Container>
     );
