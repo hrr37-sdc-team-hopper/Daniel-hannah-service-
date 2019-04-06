@@ -5,6 +5,7 @@ import $ from 'jquery';
 import Reviews from './components/Reviews.jsx';
 import RatingDetails from './components/RatingDetails.jsx';
 import Filter from './components/Filter.jsx'
+import AddReview from './components/AddReview.jsx'
 
 const Container = styled.div`
   float: left;
@@ -146,6 +147,7 @@ class App extends React.Component {
         <div>
           <Reviews rating={this.state.rating} ratedReviews={this.state.ratedReviews} reviews={this.state.reviews} users={this.state.users} />
         </div>
+        <AddReview />
       </Container>
     );
   }
