@@ -2,11 +2,12 @@ import React from 'react';
 import EachReview from './EachReview.jsx';
 
 const Reviews = (props) => {
+  console.log(props.ratedReviews, 'rated reviews')
   const block = {
     display: 'block',
   };
 
-  if (props.rating === 0) {
+  if (props.rating === 0 || props.rating === 'a') {
     return (
       <div className="reviews" style={block}>
         {props.reviews.map((review, index) => {
@@ -19,7 +20,8 @@ const Reviews = (props) => {
       </div>
     );
   }
-  return (
+  else {
+    return (
       <div className="reviews" style={block}>
         {props.ratedReviews.map((review, index) => {
           return (
@@ -31,6 +33,7 @@ const Reviews = (props) => {
         }
       </div>
   );
+  }
 };
 
 export default Reviews;

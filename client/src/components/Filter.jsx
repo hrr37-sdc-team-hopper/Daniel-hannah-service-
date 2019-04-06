@@ -37,7 +37,7 @@ class Filter extends React.Component {
     return (
       <div>
         <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter</StyledLink>
-        <Tooltip onSelectRating={this.props.onSelectRating} interactive reviews={this.props.reviews} display={this.state.displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={this.props.ratings}/>
+        <Tooltip onSelectRating={this.props.onSelectRating} interactive reviews={this.props.reviews} display={this.state.displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={this.props.ratings} />
       </div>
     );
   }

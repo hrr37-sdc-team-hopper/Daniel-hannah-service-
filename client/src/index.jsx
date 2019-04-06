@@ -96,14 +96,16 @@ class App extends React.Component {
 
   getRatedReviews(rating) {
     $.get(`/books/1/reviews/${this.state.rating}`, (data) => {
+      console.log(data, 'data')
       this.setState({
         ratedReviews: data
       });
     });
   }
 
-  handleReviews(selectedRating) {
-    this.setState({ rating: selectedRating });
+  async handleReviews(selectedRating) {
+    await this.setState({ rating: selectedRating });
+    await this.getRatedReviews(this.state.rating);
   }
   // sortByRating() {
   //   console.log(this.state.reviews, 'reviews')

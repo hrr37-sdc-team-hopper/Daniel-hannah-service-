@@ -39,7 +39,6 @@ class EachReview extends React.Component {
   }
 
   render() {
-
     const float = {
       float: 'right',
     };
