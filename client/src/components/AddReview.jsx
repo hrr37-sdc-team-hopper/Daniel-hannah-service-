@@ -3,7 +3,7 @@ import StarRatings from 'react-star-ratings';
 import styled from 'styled-components';
 import $ from 'jquery';
 
-const Search = styled.form`
+const Search = styled.div`
   float: left;
   background: #FFFFFF;
   resize: none;
@@ -18,7 +18,7 @@ const Text = styled.textarea`
   &:focus {outline: none; box-shadow:0 0 10px #D6D0C4;}
 `;
 
-const Submit = styled.input`
+const Submit = styled.button`
   background-color: #F4F1EA;
   border-radius: 3px;
   color: #333333;
@@ -45,7 +45,7 @@ class AddReview extends React.Component {
     super(props);
     this.state = {
       selectedRating: 0,
-      review: '',
+      myReview: '',
       userId: 101, // our demo assumes a user is logged in, thus the user's id will always be 101
     };
     this.ratingHandler = this.ratingHandler.bind(this);
@@ -62,18 +62,23 @@ class AddReview extends React.Component {
 
   reviewHandler(event) {
     this.setState({
-      review: event.target.value
+      myReview: event.target.value,
     });
   }
 
-  postReview(rating, review, userId) {
-    $.ajax({
-      url: `/books/${this.props.id}/reviews`,
-      type: 'POST',
-      data: { rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId },
-      dataType: 'application/JSON',
-      success: () => { this.handleClearForm(); },
+  async postReview(event) {
+    event.preventDefault();
+
+    const { myReview, selectedRating, userId } = this.state;
+    const { id, onUpdate } = this.props;
+
+    await $.post(`/books/${id}/reviews`, {
+      review: myReview,
+      rating: selectedRating,
+      user_id: userId
     });
+
+    await onUpdate(myReview);
   }
 
   handleClearForm(e) {
@@ -84,45 +89,26 @@ class AddReview extends React.Component {
     });
   }
 
-  // submitHandler() {
-  //   fetch(`/books/${this.props.id}/reviews`, {
-  //     method: 'POST',
-  //     data: JSON.stringify({rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId })
-  //   })
-  // }
-
-
-//   fetch('http://example.com',{
-//     method: "POST",
-//     body: JSON.stringify(userData),
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//   }).then(response => {
-//     response.json().then(data =>{
-//       console.log("Successful" + data);
-//     })
-// })
-// }
-// $.post(`/books/${this.props.id}/reviews`, ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
-
-
   render() {
     const { selectedRating } = this.state;
     return (
       <div>
-        <Search action={`/books/${this.props.id}/reviews`} method="post" onSubmit={this.postReview}>
-          <Text name="review" rows="12" cols="85" onChange={this.reviewHandler} placeholder="Type your review here" />
-          <Submit type="submit" value="Post Review" onSubmit={this.postReview} />
-          <Star type="number" name="rating" onChange={this.ratingHandler}>
-            {/* <input type="number" name="rating" onChange={this.ratingHandler}> */}
+        <Search>
+          <Text
+            name="review"
+            rows="12"
+            cols="85"
+            onChange={this.reviewHandler}
+            placeholder="Type your review here"
+          />
+          <Submit onClick={this.postReview}>Post review</Submit>
+          <Star>
             <StarRatings
               name="rating"
               onChange={this.ratingHandler}
               changeRating={this.ratingHandler}
               isSelectable={true}
-              rating={this.state.selectedRating}
+              rating={selectedRating}
               starRatedColor="#FF7F50"
               numberOfStars={5}
               starDimension="25px"

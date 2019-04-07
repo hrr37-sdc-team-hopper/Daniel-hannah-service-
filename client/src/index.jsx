@@ -64,6 +64,7 @@ class App extends React.Component {
       // one: 0,
     };
     this.handleReviews = this.handleReviews.bind(this);
+    this.updateReviews = this.updateReviews.bind(this);
   }
 
   // componentDidMount() {
@@ -109,10 +110,18 @@ class App extends React.Component {
     });
   }
 
+  updateReviews(postedReview) {
+    this.setState(prevState => ({
+      reviews: [postedReview, ...prevState.reviews],
+    }));
+    this.getAllReviews(); // look for a way you can rerender without calling another get request! the page does not rerender automatically after updating state
+  }
+
   async handleReviews(selectedRating) {
     await this.setState({ rating: selectedRating });
     await this.getRatedReviews(this.state.rating);
   }
+
   // sortByRating() {
   //   console.log(this.state.reviews, 'reviews')
   //   this.state.ratings.map((rating) => {
@@ -164,9 +173,13 @@ class App extends React.Component {
             ratedReviews={ratedReviews}
             reviews={reviews}
             users={users}
+            id={this.state.id}
           />
         </div>
-        <AddReview id={this.state.id} />
+        <AddReview
+          id={this.state.id}
+          onUpdate={this.updateReviews}
+        />
       </Container>
     );
   }
