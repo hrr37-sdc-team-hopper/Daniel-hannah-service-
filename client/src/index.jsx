@@ -29,10 +29,14 @@ const StyledLink = styled.a`
 const Search = styled.span`
   float: right;
   color: #333333;
+  background: #FFFFFF;
+`;
+
+const SearchInput = styled.input`
+  width: 130px;
   border: #DCD6CC 1px solid;
   border-radius: 3px;
-  background: #FFFFFF;
-  resize: none
+  padding: 5px
 `;
 
 const Align = styled.div`
@@ -149,7 +153,7 @@ class App extends React.Component {
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
           <Search>
-            <input placeholder="Search review text" />
+            <SearchInput placeholder="Search review text" />
           </Search>
         </Align>
         <hr />
