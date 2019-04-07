@@ -50,11 +50,21 @@ app.post('/books/:id/reviews', async (req, res) => {
   const { rating, review, user_id } = req.body;
   // console.log(req.body)
   try {
-    await db.postReview(review, rating, id, user_id);
-    const reviews = await db.getReviews(id);
-    res.json(reviews);
+    const posted = await db.postReview(review, rating, id, user_id);
+    res.json(posted);
   } catch (err) {
-    res.json(err);
+    console.log(err);
+  }
+});
+
+// increment likes when someone likes a review
+app.put('/books/:id/reviews', async (req, res) => {
+  const { reviewId } = req.body;
+  try {
+    await db.addLike(reviewId);
+    res.json();
+  } catch (err) {
+    console.log(err);
   }
 });
 
