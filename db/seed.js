@@ -10,7 +10,7 @@ const seedUsers = async () => {
     };
     await db.insertUser(user);
   }
-  await db.insertUser({username: 'Demo User', avatar:`https://du1ex6u29s822.cloudfront.net/image-101.png`})
+  await db.insertUser({username: 'Demo_User', avatar:`https://du1ex6u29s822.cloudfront.net/image-101.png`})
 };
 
 // const seedUsers = async () => {

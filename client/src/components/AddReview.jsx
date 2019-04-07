@@ -43,9 +43,12 @@ class AddReview extends React.Component {
     this.state = {
       selectedRating: 0,
       review: '',
-      userId: 101
+      userId: 101, // our demo assumes a user is logged in, thus the user's id will always be 101
     };
     this.ratingHandler = this.ratingHandler.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
+    this.postReview = this.postReview.bind(this);
+    this.reviewHandler = this.reviewHandler.bind(this);
   }
 
   ratingHandler(rating) {
@@ -54,30 +57,69 @@ class AddReview extends React.Component {
     });
   }
 
-  reviewHandler(myReview) {
+  reviewHandler(event) {
     this.setState({
-      review: myReview
+      review: event.target.value
     });
   }
 
-  postReview() {
-    $.post(`/books/${this.props.id}/reviews`, ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
+  postReview(rating, review, userId) {
+    $.ajax({
+      url: `/books/${this.props.id}/reviews`,
+      type: 'POST',
+      data: { rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId },
+      dataType: 'application/JSON',
+      success: () => { this.handleClearForm(); },
+    });
   }
+
+  handleClearForm(e) {
+    e.preventDefault();
+    this.setState({
+      review: '',
+      rating: 0
+    });
+  }
+
+  // submitHandler() {
+  //   fetch(`/books/${this.props.id}/reviews`, {
+  //     method: 'POST',
+  //     data: JSON.stringify({rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId })
+  //   })
+  // }
+
+
+//   fetch('http://example.com',{
+//     method: "POST",
+//     body: JSON.stringify(userData),
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//   }).then(response => {
+//     response.json().then(data =>{
+//       console.log("Successful" + data);
+//     })
+// })
+// }
+// $.post(`/books/${this.props.id}/reviews`, ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
 
 
   render() {
     const { selectedRating } = this.state;
     return (
       <div>
-        <Search action="/books/1/reviews" method="post" name="review">
-          <TextBorder name="review" rows="10" cols="80" placeholder="Type your review here" />
-          <Submit type="submit" value="Post Review" />
-          <Star>
+        <Search action={`/books/${this.props.id}/reviews`} method="post" onSubmit={this.postReview}>
+          <TextBorder name="review" rows="10" cols="80" onChange={this.reviewHandler} placeholder="Type your review here" />
+          <Submit type="submit" value="Post Review" onSubmit={this.postReview} />
+          <Star type="number" name="rating" onChange={this.ratingHandler}>
+            {/* <input type="number" name="rating" onChange={this.ratingHandler}> */}
             <StarRatings
-              changeRating={this.ratingHandler}
               name="rating"
+              onChange={this.ratingHandler}
+              changeRating={this.ratingHandler}
               isSelectable={true}
-              rating={selectedRating}
+              rating={this.state.selectedRating}
               starRatedColor="#FF7F50"
               numberOfStars={5}
               starDimension="25px"

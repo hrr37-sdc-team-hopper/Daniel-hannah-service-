@@ -23,7 +23,6 @@ app.get('/books/:id/reviews', async (req, res) => {
   }
 });
 
-
 // get reviews for specific book w/ specific rating
 app.get('/books/:id/reviews/:rating', async (req, res) => {
   const { id, rating } = req.params;
@@ -35,8 +34,8 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
   }
 });
 
+// get all users
 app.get('/books/:id/users', async (req, res) => {
-  // const { id } = req.params;
   try {
     const users = await db.getAllUsers();
     res.json(users);
@@ -45,14 +44,13 @@ app.get('/books/:id/users', async (req, res) => {
   }
 });
 
-// post review for specific book and get back all reviews w/ new review added
+// post review for specific book and send back updated reviews
 app.post('/books/:id/reviews', async (req, res) => {
-  const id = parseInt(req.params.id);
-  const myRating = parseInt(req.body.myRating);
-  const { review } = req.body;
-
+  const { id } = req.params;
+  const { rating, review, user_id } = req.body;
+  // console.log(req.body)
   try {
-    await db.postReview(review, myRating, id);
+    await db.postReview(review, rating, id, user_id);
     const reviews = await db.getReviews(id);
     res.json(reviews);
   } catch (err) {

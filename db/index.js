@@ -74,14 +74,14 @@ const getAllUsers = () => {
   });
 };
 
-const postReview = (review, rating, id) => {
+const postReview = (review, rating, bookId, userId) => {
   return new Promise((resolve, reject) => {
     let date = new Date();
     date = date.toString();
     date = date.slice(4, 10) + ', ' + date.slice(11, 15);
 
-    const params = [review, rating, id, date];
-    const sql = 'insert into reviews (review, rating, book_id, date) values (?, ?, ?, ?)';
+    const params = [review, rating, bookId, userId, date];
+    const sql = 'insert into reviews (review, rating, book_id, user_id, date) values (?, ?, ?, ?, ?)';
     connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
