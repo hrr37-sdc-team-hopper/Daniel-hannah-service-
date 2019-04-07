@@ -24,6 +24,7 @@ CREATE TABLE reviews (
   date varchar(100),
   review varchar(5000) NOT NULL,
   rating INT NOT NULL,
+  likes INT default 0,
   PRIMARY KEY (id)
 );
 
