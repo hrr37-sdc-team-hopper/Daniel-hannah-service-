@@ -12,9 +12,10 @@ const Search = styled.form`
   font:-family: Merriweather, Georgia, serif;
 `;
 
-const TextBorder = styled.textarea`
+const Text = styled.textarea`
   border: 1px solid #D6D0C4;
   border-radius: 5px;
+  &:focus {outline: none; box-shadow:0 0 10px #D6D0C4;}
 `;
 
 const Submit = styled.input`
@@ -26,9 +27,11 @@ const Submit = styled.input`
   float: right;
   margin-top: 13px;
   margin-bottom: 30px;
-  margin-right: 30px;
+  margin-right: 5px;
   border: 1px solid #D6D0C4;
   box-shadow: 0 0 10px #F4F1EA;
+  cursor: pointer;
+  &:focus {outline: none; box-shadow:0 0 10px #D6D0C4;}
 `;
 
 const Star = styled.span`
@@ -110,7 +113,7 @@ class AddReview extends React.Component {
     return (
       <div>
         <Search action={`/books/${this.props.id}/reviews`} method="post" onSubmit={this.postReview}>
-          <TextBorder name="review" rows="10" cols="80" onChange={this.reviewHandler} placeholder="Type your review here" />
+          <Text name="review" rows="12" cols="85" onChange={this.reviewHandler} placeholder="Type your review here" />
           <Submit type="submit" value="Post Review" onSubmit={this.postReview} />
           <Star type="number" name="rating" onChange={this.ratingHandler}>
             {/* <input type="number" name="rating" onChange={this.ratingHandler}> */}
