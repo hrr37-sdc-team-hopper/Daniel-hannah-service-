@@ -19,6 +19,10 @@ const Header = styled.p`
   fontWeight: 450
 `;
 
+const ReviewCount = styled.span`
+  color: #999999;
+`;
+
 class RatingDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +53,7 @@ class RatingDetails extends React.Component {
           {average}
           <span> 4.03  </span>
           <LinkTag href="#">Rating details</LinkTag>
-          <span> • {reviews.length} ratings</span>
+          <ReviewCount> • {reviews.length} ratings</ReviewCount>
         </RatingDetailsBar>
       </div>
     );

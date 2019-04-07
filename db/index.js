@@ -89,6 +89,16 @@ const postReview = (review, rating, bookId, userId) => {
   });
 };
 
+const addLike = (reviewId) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'update reviews set likes = likes + 1 where (id = ?)';
+    connection.query(sql, reviewId, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
+
 
 module.exports = {
   insertUser,
@@ -98,5 +108,6 @@ module.exports = {
   postReview,
   connection,
   getUser,
-  getAllUsers
+  getAllUsers,
+  addLike
 };

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
-// import StarRatingComponent from 'react-star-rating-component';
-
+import ReviewActivity from './ReviewActivity.jsx'
 
 const ReviewContent = styled.div`
   font-family: Merriweather, Georgia, serif;
@@ -32,6 +31,7 @@ const Image = styled.a`
 
 const Float = styled.span`
   float: right;
+  color: #999999;
 `;
 
 const EachReview = (props) => {
@@ -56,6 +56,7 @@ const EachReview = (props) => {
                 <ReviewContent>
                   <p>{review}</p>
                 </ReviewContent>
+                <ReviewActivity id={props.id} reviews={props.reviews} reviewId={props.reviewId} likes={props.likes} />
               </UserDetails>
             </div>
           );

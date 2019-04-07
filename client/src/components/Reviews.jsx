@@ -12,7 +12,17 @@ const Reviews = (props) => {
         {props.reviews.map((review, index) => {
           return (
             <div className="review-container" key={index}>
-              <EachReview className="txn-data" userId={review.user_id} users={props.users} rating={review.rating} date={review.date} review={review.review} />
+              <EachReview
+                className="txn-data"
+                userId={review.user_id}
+                users={props.users}
+                rating={review.rating}
+                date={review.date}
+                review={review.review}
+                reviews={props.reviews}
+                reviewId={review.id}
+                likes={review.likes}
+              />
             </div>
           );
         })}
@@ -24,7 +34,13 @@ const Reviews = (props) => {
       {props.ratedReviews.map((review, index) => {
         return (
           <div className="review-container" key={index}>
-            <EachReview className="txn-data" userId={review.user_id} users={props.users} rating={review.rating} date={review.date} review={review.review} />
+            <EachReview
+              id={props.id}
+              userId={review.user_id}
+              users={props.users}
+              rating={review.rating}
+              date={review.date}
+              review={review.review} />
           </div>
         );
       })
