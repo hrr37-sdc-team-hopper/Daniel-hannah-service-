@@ -51,7 +51,6 @@ class Tooltip extends React.Component {
     super(props);
     this.state = {
       selectedRating: 0,
-      ratedReviews: [],
       all: 0,
       five: 0,
       four: 0,
@@ -61,14 +60,6 @@ class Tooltip extends React.Component {
 
     };
     this.clickHandler = this.clickHandler.bind(this);
-  }
-
-  getRatings(rating) {
-    $.get(`/books/1/reviews/${this.state.selectedRating}`, (data) => {
-      this.setState({
-        ratedReviews: data
-      });
-    });
   }
 
   clickHandler(e) {

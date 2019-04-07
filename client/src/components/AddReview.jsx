@@ -61,7 +61,7 @@ class AddReview extends React.Component {
   }
 
   postReview() {
-    $.post('/books/1/reviews', ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
+    $.post(`/books/${this.props.id}/reviews`, ({ rating: this.state.selectedRating, review: this.state.review, user_id: this.state.userId }));
   }
 
 

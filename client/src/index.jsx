@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import $ from 'jquery';
+import AppRouter from './router.jsx';
 import Reviews from './components/Reviews.jsx';
 import RatingDetails from './components/RatingDetails.jsx';
 import Filter from './components/Filter.jsx'
@@ -51,6 +52,7 @@ class App extends React.Component {
       ratings: [],
       rating: 0,
       ratedReviews: [],
+      id: this.props.match.params.id,
       // five: 0,
       // four: 0,
       // three: 0,
@@ -77,18 +79,18 @@ class App extends React.Component {
 
   // IMPLEMENT REACT ROUTING
   getAllReviews() {
-    $.get('/books/1/reviews', (data) => {
-      const ratings = [];
-      data.map((review) => { ratings.push(review.rating); });
+    $.get(`/books/${this.state.id}/reviews`, (data) => {
+      const allRatings = [];
+      data.map((review) => { allRatings.push(review.rating); });
       this.setState({
         reviews: data,
-        ratings: ratings
+        ratings: allRatings,
       });
     });
   }
 
   getAllUsers() {
-    $.get('/books/1/users', (data) => {
+    $.get(`/books/${this.state.id}/users`, (data) => {
       this.setState({
         users: data
       });
@@ -96,7 +98,7 @@ class App extends React.Component {
   }
 
   getRatedReviews(rating) {
-    $.get(`/books/1/reviews/${this.state.rating}`, (data) => {
+    $.get(`/books/${this.state.id}/reviews/${this.state.rating}`, (data) => {
       this.setState({
         ratedReviews: data
       });
@@ -160,9 +162,12 @@ class App extends React.Component {
             users={users}
           />
         </div>
-        <AddReview />
+        <AddReview id={this.state.id} />
       </Container>
     );
   }
 }
-ReactDOM.render(<App />, document.getElementById('app'));
+
+export default App;
+
+ReactDOM.render(<AppRouter />, document.getElementById('app'));
