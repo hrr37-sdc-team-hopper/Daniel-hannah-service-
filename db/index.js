@@ -13,8 +13,9 @@ connection.connect((err) => {
 
 const insertUser = (user) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO users (username) VALUES (?)';
-    connection.query(sql, user.username, (err, result) => {
+    const sql = 'INSERT INTO users (username, avatar) VALUES (?, ?)';
+    const params = [user.username, user.avatar];
+    connection.query(sql, params, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
     });
@@ -53,19 +54,45 @@ const getRatedReviews = (id, rating) => {
   });
 };
 
+const getUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    const sql = `select username from users where id = ${userId}`;
+    connection.query(sql, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
 
-const postReview = (review, rating, id) => {
-  console.log(review, 'REVIEW');
-  console.log(rating, 'RATING');
-  console.log(id, 'IDDDD');
+const getAllUsers = () => {
+  return new Promise((resolve, reject) => {
+    const sql = 'select * from users';
+    connection.query(sql, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
 
+const postReview = (review, rating, bookId, userId) => {
   return new Promise((resolve, reject) => {
     let date = new Date();
-    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    date = date.toString();
+    date = date.slice(4, 10) + ', ' + date.slice(11, 15);
 
-    const params = [review, rating, id, date];
-    const sql = 'insert into reviews (review, rating, book_id, date) values (?, ?, ?, ?)';
+    const params = [review, rating, bookId, userId, date];
+    const sql = 'insert into reviews (review, rating, book_id, user_id, date) values (?, ?, ?, ?, ?)';
     connection.query(sql, params, (err, result) => {
+      if (err) { reject(err); }
+      resolve(result);
+    });
+  });
+};
+
+const addLike = (reviewId) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'update reviews set likes = likes + 1 where (id = ?)';
+    connection.query(sql, reviewId, (err, result) => {
       if (err) { reject(err); }
       resolve(result);
     });
@@ -79,5 +106,8 @@ module.exports = {
   getReviews,
   getRatedReviews,
   postReview,
-  connection
+  connection,
+  getUser,
+  getAllUsers,
+  addLike
 };

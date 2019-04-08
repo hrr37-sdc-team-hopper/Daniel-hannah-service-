@@ -23,7 +23,6 @@ app.get('/books/:id/reviews', async (req, res) => {
   }
 });
 
-
 // get reviews for specific book w/ specific rating
 app.get('/books/:id/reviews/:rating', async (req, res) => {
   const { id, rating } = req.params;
@@ -35,31 +34,36 @@ app.get('/books/:id/reviews/:rating', async (req, res) => {
   }
 });
 
-// post review for specific book
-// app.post('/books/:id/reviews', (req, res) => {
-//   const { id } = req.params;
-//   const { review, rating } = req.body;
-
-//   db.postReview(id, review, rating).then(() => {
-//     db.getReviews(id);
-//   }).then((reviews) => {
-//     res.send(reviews);
-//   });
-// });
-
-// post review for specific book and get back all reviews w/ new review added
-app.post('/books/:id/reviews', async (req, res) => {
-  const id = parseInt(req.params.id);
-  const myRating = parseInt(req.body.myRating);
-  const { review } = req.body;
-  // const { id } = req.params;
-
+// get all users
+app.get('/books/:id/users', async (req, res) => {
   try {
-    await db.postReview(review, myRating, id);
-    const reviews = await db.getReviews(id);
-    res.json(reviews);
+    const users = await db.getAllUsers();
+    res.json(users);
   } catch (err) {
     res.json(err);
+  }
+});
+
+// post review for specific book and send back updated reviews
+app.post('/books/:id/reviews', async (req, res) => {
+  const { id } = req.params;
+  const { rating, review, user_id } = req.body;
+  try {
+    const posted = await db.postReview(review, rating, id, user_id);
+    res.json(posted);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// increment likes when someone likes a review
+app.put('/books/:id/reviews', async (req, res) => {
+  const { reviewId } = req.body;
+  try {
+    await db.addLike(reviewId);
+    res.json();
+  } catch (err) {
+    console.log(err);
   }
 });
 

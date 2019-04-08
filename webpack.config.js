@@ -1,5 +1,5 @@
 module.exports = {
-  entry: __dirname + '/client/src/index.jsx',
+  entry: ['babel-polyfill', __dirname + '/client/src/index.jsx'],
   module: {
     rules: [
       {
@@ -9,13 +9,13 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-react', '@babel/preset-env']
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
-   output: {
+  output: {
     filename: 'bundle.js',
     path: __dirname + '/public'
-  }
+  },
 };
