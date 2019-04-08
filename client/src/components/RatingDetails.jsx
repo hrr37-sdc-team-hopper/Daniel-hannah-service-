@@ -23,28 +23,20 @@ const ReviewCount = styled.span`
   color: #999999;
 `;
 
-class RatingDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const RatingDetails = (props) => {
+  const { average, reviews} = props;
+  return (
+    <div>
+      <RatingDetailsBar>
+        <Header>COMMUNITY REVIEWS</Header>
+        <hr />
+        <StarRatings rating={4} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
+        <span> {average} </span>
+        <LinkTag href="#">Rating details</LinkTag>
+        <ReviewCount> • {reviews.length} ratings</ReviewCount>
+      </RatingDetailsBar>
+    </div>
+  );
+};
 
-  render() {
-    const { average, reviews} = this.props;
-
-    return (
-      <div>
-        <RatingDetailsBar>
-          <Header>COMMUNITY REVIEWS</Header>
-          <hr />
-          <StarRatings rating={4} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
-          <span> {average} </span>
-          <LinkTag href="#">Rating details</LinkTag>
-          <ReviewCount> • {reviews.length} ratings</ReviewCount>
-        </RatingDetailsBar>
-      </div>
-    );
-  }
-}
 export default RatingDetails;
