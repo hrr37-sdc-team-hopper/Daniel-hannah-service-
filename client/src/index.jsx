@@ -62,7 +62,8 @@ class App extends React.Component {
       three: 0,
       two: 0,
       one: 0,
-      all: 0
+      all: 0,
+      averageRating: 0
     };
     this.handleReviews = this.handleReviews.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
@@ -83,6 +84,7 @@ class App extends React.Component {
     await this.getAllReviews();
     await this.getAllUsers();
     await this.sortByRating();
+    await this.average();
   }
 
   async getAllReviews() {
@@ -154,13 +156,22 @@ class App extends React.Component {
     });
   }
 
+  average() {
+    const { ratings } = this.state;
+    const sumRatings = ratings.reduce((acc, val) => acc + val);
+    let average = sumRatings / (ratings.length);
+    average = +average.toFixed(2);
+    this.setState({ averageRating: average });
+  }
+
   render() {
-    const { reviews, ratings, ratedReviews, users, rating } = this.state;
+    const { reviews, ratings, ratedReviews, users, rating, averageRating } = this.state;
     return (
       <Container className="app">
         <RatingDetails
           reviews={reviews}
           ratings={ratings}
+          average={averageRating}
         />
         <br />
         <Align>

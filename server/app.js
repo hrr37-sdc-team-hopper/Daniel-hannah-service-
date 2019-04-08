@@ -48,7 +48,6 @@ app.get('/books/:id/users', async (req, res) => {
 app.post('/books/:id/reviews', async (req, res) => {
   const { id } = req.params;
   const { rating, review, user_id } = req.body;
-  // console.log(req.body)
   try {
     const posted = await db.postReview(review, rating, id, user_id);
     res.json(posted);

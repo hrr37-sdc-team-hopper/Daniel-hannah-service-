@@ -39,33 +39,16 @@ class ReviewActivity extends React.Component {
       url: `/books/${this.props.id}/reviews`,
       type: 'PUT',
       data: { reviewId: id },
+      success: () => { this.props.getAllReviews(); },
     });
   }
 
   render() {
-  //   return (
-  //     <div>
-  //       {this.props.reviews.map((review) => {
-  //         <div>
-  //           <span>{review.likes}</span>
-  //           <span>
-  //             <button
-  //               type="submit"
-  //               method="POST"
-  //               value="Like"
-  //               onSubmit={this.likeHandler} />
-  //           </span>
-  //         </div>
-  //       })}
-  //     </div>
-  //   )
-  // }
     return (
       <div>
         <span>{this.props.likes} likes • </span>
         <span>
           <Button
-            method="POST"
             onClick={this.likeHandler}
           >
           Like

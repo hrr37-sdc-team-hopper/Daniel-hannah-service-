@@ -13,13 +13,12 @@ const Reviews = (props) => {
           return (
             <div className="review-container" key={index}>
               <EachReview
-                className="txn-data"
-                userId={review.user_id}
                 users={props.users}
+                reviews={props.reviews}
+                userId={review.user_id}
                 rating={review.rating}
                 date={review.date}
                 review={review.review}
-                reviews={props.reviews}
                 reviewId={review.id}
                 likes={review.likes}
               />
@@ -40,7 +39,11 @@ const Reviews = (props) => {
               users={props.users}
               rating={review.rating}
               date={review.date}
-              review={review.review} />
+              review={review.review}
+              reviews={props.reviews}
+              likes={review.likes}
+              reviewId={review.id}
+            />
           </div>
         );
       })

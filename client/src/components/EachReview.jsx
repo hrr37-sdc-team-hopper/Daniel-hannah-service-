@@ -35,7 +35,7 @@ const Float = styled.span`
 `;
 
 const EachReview = (props) => {
-  const { userId, users, rating, date, review } = props;
+  const { userId, users, rating, date, review, reviews, reviewId, likes } = props;
 
   return (
     <div>
@@ -51,12 +51,25 @@ const EachReview = (props) => {
                   {user.username}
                 </User>
                 <span> rated it </span>
-                <StarRatings rating={rating} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
+                <StarRatings
+                  rating={rating}
+                  starRatedColor="#FF7F50"
+                  numberOfStars={5}
+                  name="rating"
+                  starDimension="20px"
+                  starSpacing="0px"
+                  z-index={-1}
+                />
                 <Float>{date}</Float>
                 <ReviewContent>
                   <p>{review}</p>
                 </ReviewContent>
-                <ReviewActivity id={props.id} reviews={props.reviews} reviewId={props.reviewId} likes={props.likes} />
+                <ReviewActivity
+                  id={props.id}
+                  reviews={reviews}
+                  reviewId={reviewId}
+                  likes={likes}
+                />
               </UserDetails>
             </div>
           );

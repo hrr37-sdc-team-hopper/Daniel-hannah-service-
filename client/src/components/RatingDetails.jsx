@@ -27,22 +27,11 @@ class RatingDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // average: this.averageRating()
     };
   }
 
-  // averageRating() {
-  //   let total = 0;
-  //   let { length } = this.props.ratings;
-
-  //   this.props.ratings.map((rating) => {
-  //     total += rating;
-  //   });
-  //   return (total / length);
-  // }
-
   render() {
-    const { average, reviews } = this.props;
+    const { average, reviews} = this.props;
 
     return (
       <div>
@@ -50,8 +39,7 @@ class RatingDetails extends React.Component {
           <Header>COMMUNITY REVIEWS</Header>
           <hr />
           <StarRatings rating={4} starRatedColor="#FF7F50" numberOfStars={5} name="rating" starDimension="20px" starSpacing="0px" />
-          {average}
-          <span> 4.03  </span>
+          <span> {average} </span>
           <LinkTag href="#">Rating details</LinkTag>
           <ReviewCount> • {reviews.length} ratings</ReviewCount>
         </RatingDetailsBar>
