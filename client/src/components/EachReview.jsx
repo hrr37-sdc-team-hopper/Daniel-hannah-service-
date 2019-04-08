@@ -35,7 +35,17 @@ const Float = styled.span`
 `;
 
 const EachReview = (props) => {
-  const { userId, users, rating, date, review, reviews, reviewId, likes } = props;
+  const {
+    userId,
+    users,
+    rating,
+    date,
+    review,
+    reviews,
+    reviewId,
+    likes,
+    id
+  } = props;
 
   return (
     <div>
@@ -65,7 +75,7 @@ const EachReview = (props) => {
                   <p>{review}</p>
                 </ReviewContent>
                 <ReviewActivity
-                  id={props.id}
+                  id={id}
                   reviews={reviews}
                   reviewId={reviewId}
                   likes={likes}
