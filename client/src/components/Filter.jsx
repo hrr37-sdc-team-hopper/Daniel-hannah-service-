@@ -39,7 +39,21 @@ class Filter extends React.Component {
     return (
       <div>
         <StyledLink onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip}>Filter</StyledLink>
-        <Tooltip onSelectRating={onSelectRating} interactive reviews={reviews} display={displayTooltip} onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} ratings={ratings} />
+        <Tooltip
+          onSelectRating={onSelectRating}
+          interactive
+          reviews={reviews}
+          display={displayTooltip}
+          onMouseEnter={this.showTooltip}
+          onMouseLeave={this.hideTooltip}
+          ratings={ratings}
+          five={this.props.five}
+          four={this.props.four}
+          three={this.props.three}
+          two={this.props.two}
+          one={this.props.one}
+          all={this.props.all}
+        />
       </div>
     );
   }

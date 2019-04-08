@@ -57,14 +57,16 @@ class App extends React.Component {
       rating: 0,
       ratedReviews: [],
       id: this.props.match.params.id,
-      // five: 0,
-      // four: 0,
-      // three: 0,
-      // two: 0,
-      // one: 0,
+      five: 0,
+      four: 0,
+      three: 0,
+      two: 0,
+      one: 0,
+      all: 0
     };
     this.handleReviews = this.handleReviews.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
+    this.sortByRating = this.sortByRating.bind(this);
   }
 
   // componentDidMount() {
@@ -77,21 +79,21 @@ class App extends React.Component {
   //     });
   // }
 
-  componentDidMount() {
-    this.getAllReviews();
-    this.getAllUsers();
+  async componentDidMount() {
+    await this.getAllReviews();
+    await this.getAllUsers();
+    await this.sortByRating();
   }
 
-  // IMPLEMENT REACT ROUTING
-  getAllReviews() {
-    $.get(`/books/${this.state.id}/reviews`, (data) => {
-      const allRatings = [];
-      data.map((review) => { allRatings.push(review.rating); });
-      this.setState({
-        reviews: data,
-        ratings: allRatings,
+  async getAllReviews() {
+    const allRatings = [];
+    await $.get(`/books/${this.state.id}/reviews`, (data) => {
+      data.map((review) => {
+        allRatings.push(review.rating);
       });
+      this.setState({ reviews: data })
     });
+    await this.setState({ ratings: allRatings })
   }
 
   getAllUsers() {
@@ -114,7 +116,8 @@ class App extends React.Component {
     this.setState(prevState => ({
       reviews: [postedReview, ...prevState.reviews],
     }));
-    this.getAllReviews(); // look for a way you can rerender without calling another get request! the page does not rerender automatically after updating state
+    this.getAllReviews();
+    // QUESTION: why won't my page rerender without calling another get request even though I am updating the state on my main index.jsx file???
   }
 
   async handleReviews(selectedRating) {
@@ -122,27 +125,34 @@ class App extends React.Component {
     await this.getRatedReviews(this.state.rating);
   }
 
-  // sortByRating() {
-  //   console.log(this.state.reviews, 'reviews')
-  //   this.state.ratings.map((rating) => {
-  //     if (rating === 5) {
-  //       this.setState({ five: (this.state.five + 1) });
-  //     }
-  //     if (rating === 4) {
-  //       this.setState({ four: (this.state.four + 1) });
-  //     }
-  //     if (rating === 3) {
-  //       this.setState({ three: (this.state.three + 1) });
-  //     }
-  //     if (rating === 2) {
-  //       this.setState({ two: (this.state.two + 1) });
-  //     }
-  //     if (rating === 1) {
-  //       this.setState({ one: (this.state.one + 1) });
-  //     }
-  //     this.setState({ all: this.props.ratings.length })
-  //   });
-  // }
+  sortByRating() {
+    const { ratings } = this.state;
+    ratings.map((rating) => {
+      if (rating === 5) {
+        const current = this.state.five;
+        this.setState({ five: (current + 1) });
+      }
+      if (rating === 4) {
+        const current = this.state.five;
+        this.setState({ four: (current + 1) });
+      }
+      if (rating === 3) {
+        const current = this.state.five;
+        this.setState({ three: (current + 1) });
+      }
+      if (rating === 2) {
+        const current = this.state.five;
+        this.setState({ two: (current + 1) });
+      }
+      if (rating === 1) {
+        const current = this.state.five;
+        this.setState({ one: (current + 1) });
+      }
+      const allRatings = this.state.ratings
+      const count = allRatings.length;
+      this.setState({ all: count });
+    });
+  }
 
   render() {
     const { reviews, ratings, ratedReviews, users, rating } = this.state;
@@ -158,6 +168,12 @@ class App extends React.Component {
             reviews={reviews}
             ratings={ratings}
             onSelectRating={this.handleReviews}
+            five={this.state.five}
+            four={this.state.four}
+            three={this.state.three}
+            two={this.state.two}
+            one={this.state.one}
+            all={this.state.all}
           />
           <span>|</span>
           <StyledLink>Sort order</StyledLink>
@@ -174,6 +190,7 @@ class App extends React.Component {
             reviews={reviews}
             users={users}
             id={this.state.id}
+            getAllReviews={this.getAllReviews}
           />
         </div>
         <AddReview
