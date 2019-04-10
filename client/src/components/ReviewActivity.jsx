@@ -28,17 +28,19 @@ class ReviewActivity extends React.Component {
     super(props);
     this.state = {
       reviewId: 0,
-      likes: 0
+      likes: this.props.likes
     };
     this.likeHandler = this.likeHandler.bind(this);
     this.saveLike = this.saveLike.bind(this);
   }
 
   async likeHandler() {
+    let currentLikes = this.state.likes + 1;
     await this.setState({
-      reviewId: this.props.reviewId
+      reviewId: this.props.reviewId,
+      likes: currentLikes
     });
-    await this.saveLike(this.state.reviewId);
+    await this.saveLike(this.props.reviewId);
   }
 
   saveLike(id) {
@@ -53,7 +55,7 @@ class ReviewActivity extends React.Component {
   render() {
     return (
       <div>
-        <Likes>{this.props.likes} likes</Likes>
+        <Likes>{this.state.likes} likes</Likes>
         <span> · </span>
         <span>
           <Button
