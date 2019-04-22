@@ -1,0 +1,15 @@
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(25) NOT NULL,
+  avatar VARCHAR,
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+  id SERIAL PRIMARY KEY,
+  userId INTEGER NOT NULL,
+  review VARCHAR,
+  rating SMALLINT,
+  date DATE,
+  bookId INTEGER
+);
