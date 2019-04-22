@@ -38,6 +38,6 @@ function writeOneHundredMillionReviews(writer, encoding, callback) {
 
 writeOneHundredMillionReviews(writeReviews, 'utf-8', () => {
   writeReviews.end();
-  const finalTime = Date.now() - startTime;
-  console.log(`Generating 100M reviews took ${finalTime / 1000} seconds`);
+  const endTime = Date.now() - startTime;
+  console.log(`Generating 100M reviews took ${endTime / 1000} seconds`);
 });
