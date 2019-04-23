@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const writeUsers = fs.createWriteStream('users.csv');
 
+writeUsers.write('id,username,avatar\n', 'utf8');
+
 const startTime = Date.now();
 
 function writeTenMillionUsers(writer, encoding, callback) {

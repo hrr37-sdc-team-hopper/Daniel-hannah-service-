@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const writeReviews = fs.createWriteStream('reviews.csv');
 
+writeReviews.write('id,userId,date,review,rating,likes,bookId\n', 'utf8');
+
 const startTime = Date.now();
 
 function writeOneHundredMillionReviews(writer, encoding, callback) {
@@ -15,10 +17,11 @@ function writeOneHundredMillionReviews(writer, encoding, callback) {
       id += 1;
       const userId = Math.floor(Math.random() * 10000000) + 1;
       const date = `${faker.date.month()} ${faker.random.number({ min: 1, max: 30 })} ${(Math.floor(Math.random() * (2019 - 1996)) + 1996)}`;
-      const review = faker.lorem.paragraph();
+      const review = faker.lorem.sentence();
       const rating = Math.floor(Math.random() * 5) + 1;
-      const bookId = Math.floor(Math.random() * 1000000) + 1;
-      const data = `${id},${userId},${date},${review},${rating},${bookId}\n`;
+      const likes = Math.floor(Math.random() * 100);
+      const bookId = Math.floor(Math.random() * 10000000) + 1;
+      const data = `${id},${userId},${date},${review},${rating},${likes},${bookId}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
