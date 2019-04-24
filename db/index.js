@@ -47,6 +47,7 @@ const getReviews = (request, response) => {
   });
 };
 
+// IN PROGRESS //
 // const insertUser = (request, response) => {
 //   const { username, avatar } = request.body;
 
