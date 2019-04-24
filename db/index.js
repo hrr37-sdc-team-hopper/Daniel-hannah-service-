@@ -1,113 +1,79 @@
-const mysql = require('mysql');
-const config = require('./config.js');
+const Pool = require('pg').Pool
 
-const connection = mysql.createConnection(config);
-
-connection.connect((err) => {
-  if (err) {
-    console.log(err, 'ERROR CONNECTING');
-  } else {
-    console.log('connected');
-  }
+const pool = new Pool({
+  user: 'daniel',
+  host: 'localhost',
+  database: 'bookshelf',
+  password: 'thomas',
+  port: 5432,
 });
 
-const insertUser = (user) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO users (username, avatar) VALUES (?, ?)';
-    const params = [user.username, user.avatar];
-    connection.query(sql, params, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
+const getTestUserById = (request, response) => {
+  const { id } = request.params;
+  const time = Date.now();
+  pool.query('SELECT * FROM testuser WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(`total query time was ${Date.now() - time}ms`);
+    response.status(200).json(results.rows);
   });
 };
 
-const insertReview = (review) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'insert into reviews (user_id, book_id, date, review, rating) values (?, ?, ?, ?, ?)';
-    const params = [review.user_id, review.book_id, review.date, review.review, review.rating];
-    connection.query(sql, params, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
+const getUserById = (request, response) => {
+  const { id } = request.params;
+  const time = Date.now();
+  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(results.rows);
+    console.log(`total query time was ${Date.now() - time}ms`);
+    response.status(200).json(results.rows);
   });
 };
 
-const getReviews = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'select * from reviews where book_id = ?';
-    connection.query(sql, id, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
+const getReviews = (request, response) => {
+  const time = Date.now();
+  const bookId = request.params.id;
+  console.log(`bookId=${bookId}`);
+  pool.query('SELECT * FROM reviews WHERE bookId = $1', [bookId], (error, results) => {
+    if (error) {
+      console.log(error);
+    }
+    console.log(results.rows);
+    console.log(`total query time was ${Date.now() - time}ms`);
+    response.status(200).json(results.rows);
   });
 };
 
-const getRatedReviews = (id, rating) => {
-  return new Promise((resolve, reject) => {
-    const params = [id, rating];
-    const sql = 'select * from reviews where (book_id = ?) and (rating = ?)';
-    connection.query(sql, params, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
-  });
-};
+// const insertUser = (request, response) => {
+//   const { username, avatar } = request.body;
 
-const getUser = (userId) => {
-  return new Promise((resolve, reject) => {
-    const sql = `select username from users where id = ${userId}`;
-    connection.query(sql, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
-  });
-};
+//   pool.query('INSERT INTO users (username, avatar) VALUES ($1, $2)', [username, avatar], (error, result) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(201).send(`User added with ID: ${result.id}`);
+//   });
+// };
 
-const getAllUsers = () => {
-  return new Promise((resolve, reject) => {
-    const sql = 'select * from users';
-    connection.query(sql, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
-  });
-};
+// const insertReview = (request, response) => {
+//   // eslint-disable-next-line object-curly-newline
+//   const { userId, review, rating, date, bookId } = request.body;
 
-const postReview = (review, rating, bookId, userId) => {
-  return new Promise((resolve, reject) => {
-    let date = new Date();
-    date = date.toString();
-    date = date.slice(4, 10) + ', ' + date.slice(11, 15);
-
-    const params = [review, rating, bookId, userId, date];
-    const sql = 'insert into reviews (review, rating, book_id, user_id, date) values (?, ?, ?, ?, ?)';
-    connection.query(sql, params, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
-  });
-};
-
-const addLike = (reviewId) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'update reviews set likes = likes + 1 where (id = ?)';
-    connection.query(sql, reviewId, (err, result) => {
-      if (err) { reject(err); }
-      resolve(result);
-    });
-  });
-};
-
+//   pool.query('insert into reviews (userId, review, rating, date, bookId) values ($1, $2, $3, $4, $5)', [userId, review, rating, date, bookId], (error, result) => {
+//     if (error) {
+//       throw error;
+//     }
+//     response.status(201).send(`User added with ID: ${result.id}`);
+//   });
+// };
 
 module.exports = {
-  insertUser,
-  insertReview,
+  getTestUserById,
+  getUserById,
   getReviews,
-  getRatedReviews,
-  postReview,
-  connection,
-  getUser,
-  getAllUsers,
-  addLike
+  // insertUser,
+  // insertReview,
 };
