@@ -1,51 +1,60 @@
-const Pool = require('pg').Pool
+const { Pool } = require('pg');
+const { user, host, database, password, port } = require('./config.js');
 
 const pool = new Pool({
-  user: 'daniel',
-  host: 'localhost',
-  database: 'bookshelf',
-  password: 'thomas',
-  port: 5432,
+  user: `${user}`,
+  host: `${host}`,
+  database: `${database}`,
+  password: `${password}`,
+  port: `${port}`,
 });
 
+// QUERY FROM A SMALL FILE TO SEE IF CODE IS WORKING //
 const getTestUserById = (request, response) => {
   const { id } = request.params;
-  const time = Date.now();
+  console.time('getTestUserTime');
   pool.query('SELECT * FROM testuser WHERE id = $1', [id], (error, results) => {
     if (error) {
-      console.log(error);
+      throw new Error(error);
     }
-    console.log(`total query time was ${Date.now() - time}ms`);
+    console.timeEnd('getTestUserTime');
     response.status(200).json(results.rows);
   });
 };
 
+// GET USER INFO FROM USERS TABLE BY ID
 const getUserById = (request, response) => {
   const { id } = request.params;
-  const time = Date.now();
+  console.time('getUserTime');
   pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
     if (error) {
-      console.log(error);
+      throw new Error(error);
     }
-    console.log(results.rows);
-    console.log(`total query time was ${Date.now() - time}ms`);
+    console.timeEnd('getUserTime');
     response.status(200).json(results.rows);
   });
 };
 
+// GET ALL REVIEWS BY BOOK ID
 const getReviews = (request, response) => {
-  const time = Date.now();
+  console.time('getReviewsTime');
   const bookId = request.params.id;
-  console.log(`bookId=${bookId}`);
   pool.query('SELECT * FROM reviews WHERE bookId = $1', [bookId], (error, results) => {
     if (error) {
-      console.log(error);
+      throw new Error(error);
     }
-    console.log(results.rows);
-    console.log(`total query time was ${Date.now() - time}ms`);
+    console.timeEnd('getReviewsTime');
     response.status(200).json(results.rows);
   });
 };
+// getReviews('5555555');
+/*
+console.time("Time this");
+for (var i = 0; i < 10000; i++) {
+  // Your stuff here
+}
+console.timeEnd("Time this");
+*/
 
 // IN PROGRESS //
 // const insertUser = (request, response) => {

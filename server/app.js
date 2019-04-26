@@ -1,15 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../db/index.js');
+const db = require('../db');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' });
-});
 
 // QUERY FROM A SMALL FILE TO SEE IF CODE IS WORKING //
 app.get('/testuser/:id', db.getTestUserById);
