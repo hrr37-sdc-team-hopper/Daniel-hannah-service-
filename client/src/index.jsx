@@ -52,7 +52,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      users: [],
       ratings: [],
       rating: 0,
       ratedReviews: [],
@@ -82,7 +81,6 @@ class App extends React.Component {
 
   async componentDidMount() {
     await this.getAllReviews();
-    await this.getAllUsers();
     await this.sortByRating();
     await this.average();
   }
@@ -93,23 +91,17 @@ class App extends React.Component {
       data.map((review) => {
         allRatings.push(review.rating);
       });
-      this.setState({ reviews: data })
+      this.setState({ reviews: data });
     });
-    await this.setState({ ratings: allRatings })
-  }
-
-  getAllUsers() {
-    $.get(`/books/${this.state.id}/users`, (data) => {
-      this.setState({
-        users: data
-      });
+    await this.setState({
+      ratings: allRatings,
     });
   }
 
   getRatedReviews(rating) {
-    $.get(`/books/${this.state.id}/reviews/${this.state.rating}`, (data) => {
+    $.get(`/books/${this.state.id}/reviews/${rating}`, (data) => {
       this.setState({
-        ratedReviews: data
+        ratedReviews: data,
       });
     });
   }
@@ -165,7 +157,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { reviews, ratings, ratedReviews, users, rating, averageRating } = this.state;
+    const { reviews, ratings, ratedReviews, rating, averageRating } = this.state;
     return (
       <Container className="app">
         <RatingDetails
@@ -199,7 +191,6 @@ class App extends React.Component {
             rating={rating}
             ratedReviews={ratedReviews}
             reviews={reviews}
-            users={users}
             id={this.state.id}
             getAllReviews={this.getAllReviews}
           />
