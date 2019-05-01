@@ -9,16 +9,31 @@ const pool = new Pool({
   port: `${port}`,
 });
 
-// QUERY FROM A SMALL FILE TO SEE IF CODE IS WORKING //
-const getTestUserById = (request, response) => {
-  const { id } = request.params;
-  console.time('getTestUserTime');
-  pool.query('SELECT * FROM testuser WHERE id = $1', [id], (error, results) => {
+// GET ALL REVIEWS BY BOOK ID
+const getReviews = (request, response) => {
+  console.time('getReviewsTime');
+  console.log(`getReviews req params=${JSON.stringify(request.params)}`);
+  const bookId = request.params.id;
+  console.log(`getReviews req params=${bookId}`);
+  pool.query('SELECT * FROM reviews WHERE bookId = $1', [bookId], (error, results) => {
     if (error) {
-      throw new Error(error);
+      return response.status(500).send(error);
     }
-    console.timeEnd('getTestUserTime');
-    response.status(200).json(results.rows);
+    console.timeEnd('getReviewsTime');
+    return response.status(200).json(results.rows);
+  });
+};
+
+// GET ALL REVIEWS BY BOOK ID AND RATING **could we just sort the ones we have?
+const getReviewsByRating = (request, response) => {
+  console.time('getReviewsTime');
+  const { id, rating } = request.params;
+  pool.query('SELECT * FROM reviews WHERE bookId = $1 AND rating = $2', [id, rating], (error, results) => {
+    if (error) {
+      return response.status(500).send(error);
+    }
+    console.timeEnd('getReviewsTime');
+    return response.status(200).json(results.rows);
   });
 };
 
@@ -28,62 +43,58 @@ const getUserById = (request, response) => {
   console.time('getUserTime');
   pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
     if (error) {
-      throw new Error(error);
+      return response.status(500).send(error);
     }
     console.timeEnd('getUserTime');
-    response.status(200).json(results.rows);
+    return response.status(200).json(results.rows);
   });
 };
 
-// GET ALL REVIEWS BY BOOK ID
-const getReviews = (request, response) => {
-  console.time('getReviewsTime');
-  const bookId = request.params.id;
-  pool.query('SELECT * FROM reviews WHERE bookId = $1', [bookId], (error, results) => {
+// POST NEW REVIEW
+const insertReview = (request, response) => {
+  const { userId, review, rating, date, bookId } = request.body;
+  console.time('postReviewTime');
+  pool.query('INSERT INTO reviews (userId, review, rating, date, bookId) VALUES ($1, $2, $3, $4, $5)', [userId, review, rating, date, bookId], (error, result) => {
     if (error) {
-      throw new Error(error);
+      return response.status(500).send(error);
     }
-    console.timeEnd('getReviewsTime');
-    response.status(200).json(results.rows);
+    console.log(`POST result=${JSON.stringify(result.fields)}`);
+    console.timeEnd('postReviewTime');
+    return response.status(201).send('Review posted');
   });
 };
-// getReviews('5555555');
-/*
-console.time("Time this");
-for (var i = 0; i < 10000; i++) {
-  // Your stuff here
-}
-console.timeEnd("Time this");
-*/
 
-// IN PROGRESS //
-// const insertUser = (request, response) => {
-//   const { username, avatar } = request.body;
+// DELETE A REVIEW
+const deleteReview = ((request, response) => {
+  const { id } = request.params;
+  console.time('deleteReviewTime');
+  pool.query('DELETE FROM reviews WHERE id = $1', [id], (error, result) => {
+    if (error) {
+      return response.status(500).send(error);
+    }
+    console.timeEnd('deleteReviewTime');
+    return response.status(200).send(`Review ${id} deleted. `);
+  });
+});
 
-//   pool.query('INSERT INTO users (username, avatar) VALUES ($1, $2)', [username, avatar], (error, result) => {
-//     if (error) {
-//       throw error;
-//     }
-//     response.status(201).send(`User added with ID: ${result.id}`);
-//   });
-// };
-
-// const insertReview = (request, response) => {
-//   // eslint-disable-next-line object-curly-newline
-//   const { userId, review, rating, date, bookId } = request.body;
-
-//   pool.query('insert into reviews (userId, review, rating, date, bookId) values ($1, $2, $3, $4, $5)', [userId, review, rating, date, bookId], (error, result) => {
-//     if (error) {
-//       throw error;
-//     }
-//     response.status(201).send(`User added with ID: ${result.id}`);
-//   });
-// };
+// LIKE A REVIEW
+const addLike = (request, response) => {
+  console.time('addLikeTime');
+  const reviewId = request.params;
+  pool.query('UPDATE reviews SET likes = likes + 1 WHERE id = $1', [reviewId], (error, result) => {
+    if (error) {
+      return response.status(500).send(error);
+    }
+    console.timeEnd('addLikeTime');
+    return response.status(200).send(`Review ${reviewId} liked!`);
+  });
+};
 
 module.exports = {
-  getTestUserById,
-  getUserById,
   getReviews,
-  // insertUser,
-  // insertReview,
+  getReviewsByRating,
+  getUserById,
+  addLike,
+  insertReview,
+  deleteReview,
 };
