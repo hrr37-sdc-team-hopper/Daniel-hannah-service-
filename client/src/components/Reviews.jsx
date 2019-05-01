@@ -5,7 +5,7 @@ const Reviews = (props) => {
   const block = {
     display: 'block',
   };
-
+  console.log(`inside Reviews.jsx render ${JSON.stringify(props)}`);
   if (props.rating === 0 || props.rating === 'a') {
     return (
       <div className="reviews" style={block}>
@@ -13,9 +13,10 @@ const Reviews = (props) => {
           return (
             <div className="review-container" key={index}>
               <EachReview
-                users={props.users}
                 reviews={props.reviews}
                 userId={review.user_id}
+                user={review.username}
+                avatar={review.avatar}
                 rating={review.rating}
                 date={review.date}
                 review={review.review}
@@ -36,7 +37,8 @@ const Reviews = (props) => {
             <EachReview
               id={props.id}
               userId={review.user_id}
-              users={props.users}
+              user={review.username}
+              avatar={review.avatar}
               rating={review.rating}
               date={review.date}
               review={review.review}

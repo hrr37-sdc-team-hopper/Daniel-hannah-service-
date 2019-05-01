@@ -36,8 +36,8 @@ const Float = styled.span`
 
 const EachReview = (props) => {
   const {
-    userId,
-    users,
+    username,
+    avatar,
     rating,
     date,
     review,
@@ -48,43 +48,36 @@ const EachReview = (props) => {
   } = props;
 
   return (
-    <div>
-      {users.map((user, index) => {
-        if (user.id === userId) {
-          return (
-            <div key={index}>
-              <Image>
-                <img src={user.avatar} alt="" />
-              </Image>
-              <UserDetails>
-                <User>
-                  {user.username}
-                </User>
-                <span> rated it </span>
-                <StarRatings
-                  rating={rating}
-                  starRatedColor="#FF7F50"
-                  numberOfStars={5}
-                  name="rating"
-                  starDimension="20px"
-                  starSpacing="0px"
-                  z-index={-1}
-                />
-                <Float>{date}</Float>
-                <ReviewContent>
-                  <p>{review}</p>
-                </ReviewContent>
-                <ReviewActivity
-                  id={id}
-                  reviews={reviews}
-                  reviewId={reviewId}
-                  likes={likes}
-                />
-              </UserDetails>
-            </div>
-          );
-        }
-      })}
+    <div key={id}>
+      <Image>
+        <img src={avatar} alt="" />
+      </Image>
+      <UserDetails>
+        <User>
+          {username}
+        </User>
+        <span> rated it </span>
+        <StarRatings
+          rating={rating}
+          starRatedColor="#FF7F50"
+          numberOfStars={5}
+          name="rating"
+          starDimension="20px"
+          starSpacing="0px"
+          z-index={-1}
+        />
+        <Float>{date}</Float>
+        <ReviewContent>
+          <p>{review}</p>
+        </ReviewContent>
+        <ReviewActivity
+          id={id}
+          reviews={reviews}
+          reviewId={reviewId}
+          likes={likes}
+        />
+      </UserDetails>
+      <br />
     </div>
   );
 };
