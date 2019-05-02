@@ -99,7 +99,7 @@ class App extends React.Component {
   }
 
   getRatedReviews(rating) {
-    $.get(`/books/${this.state.id}/reviews/${rating}`, (data) => {
+    $.get(`/books/${this.state.id}/reviews/${this.state.rating}`, (data) => {
       this.setState({
         ratedReviews: data,
       });
@@ -206,4 +206,4 @@ class App extends React.Component {
 
 export default App;
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+ReactDOM.render(<AppRouter />, document.getElementById('reviews'));
